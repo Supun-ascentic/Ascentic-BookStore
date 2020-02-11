@@ -1,12 +1,17 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Ascentic_BookStore.Data;
 // <copyright file="Startup.cs" company="supun-ascentic">
 // Copyright (c) supun-ascentic. All rights reserved.
 // </copyright>
+
 namespace Ascentic_BookStore
 {
+    using Ascentic_BookStore.Data;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
-    using Microsoft.AspNetCore.HttpsPolicy;
     using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
+    using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
@@ -36,6 +41,11 @@ namespace Ascentic_BookStore
             {
                 c.SwaggerDoc(name: "v1", new OpenApiInfo { Title = "My API", Version = "v1" });
             });
+
+            services.AddDbContext<Ascentic_BookStoreContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("Ascentic_BookStoreContext")));
+
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

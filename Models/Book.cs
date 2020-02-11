@@ -17,20 +17,16 @@ namespace Ascentic_BookStore.Models
 
             [Required]
             [StringLength(30)]
-            [RegularExpression(@"^[A-Z]+[a-zA-Z""'\s-]*$")]
-            public string Catagory { get; set; }
+            public string Category { get; set; }
 
             [Required]
             [StringLength(100)]
-            [RegularExpression(@"^[A-Z]+[a-zA-Z""'\s-]*$")]
             public string Author { get; set; }
 
-            [RegularExpression(@"^[A-Z]+[a-zA-Z""'\s-]*$")]
             public double Price { get; set; }
 
             [Required]
             [StringLength(250)]
-            [RegularExpression(@"^[A-Z]+[a-zA-Z""'\s-]*$")]
             public string Description { get; set; }
     }
 }
