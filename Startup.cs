@@ -42,10 +42,8 @@ namespace Ascentic_BookStore
                 c.SwaggerDoc(name: "v1", new OpenApiInfo { Title = "My API", Version = "v1" });
             });
 
-            services.AddDbContext<Ascentic_BookStoreContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("Ascentic_BookStoreContext")));
-
-            
+            services.AddDbContext<BookStoreContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("BookStoreContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

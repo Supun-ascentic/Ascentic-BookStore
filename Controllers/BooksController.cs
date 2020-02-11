@@ -14,9 +14,9 @@ namespace Ascentic_BookStore.Controllers
     [ApiController]
     public class BooksController : ControllerBase
     {
-        private readonly Ascentic_BookStoreContext _context;
+        private readonly BookStoreContext _context;
 
-        public BooksController(Ascentic_BookStoreContext context)
+        public BooksController(BookStoreContext context)
         {
             _context = context;
         }
@@ -30,7 +30,7 @@ namespace Ascentic_BookStore.Controllers
 
         // GET: api/Books/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Book>> GetBook(int id)
+        public async Task<ActionResult<Book>> GetBook(string id)
         {
             var book = await _context.Book.FindAsync(id);
 
@@ -46,9 +46,9 @@ namespace Ascentic_BookStore.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutBook(int id, Book book)
+        public async Task<IActionResult> PutBook(string id, Book book)
         {
-            if (id != book.Id)
+            if (id != book.BookId)
             {
                 return BadRequest();
             }
@@ -81,14 +81,28 @@ namespace Ascentic_BookStore.Controllers
         public async Task<ActionResult<Book>> PostBook(Book book)
         {
             _context.Book.Add(book);
-            await _context.SaveChangesAsync();
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException)
+            {
+                if (BookExists(book.BookId))
+                {
+                    return Conflict();
+                }
+                else
+                {
+                    throw;
+                }
+            }
 
-            return CreatedAtAction("GetBook", new { id = book.Id }, book);
+            return CreatedAtAction("GetBook", new { id = book.BookId }, book);
         }
 
         // DELETE: api/Books/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Book>> DeleteBook(int id)
+        public async Task<ActionResult<Book>> DeleteBook(string id)
         {
             var book = await _context.Book.FindAsync(id);
             if (book == null)
@@ -102,9 +116,9 @@ namespace Ascentic_BookStore.Controllers
             return book;
         }
 
-        private bool BookExists(int id)
+        private bool BookExists(string id)
         {
-            return _context.Book.Any(e => e.Id == id);
+            return _context.Book.Any(e => e.BookId == id);
         }
     }
 }
