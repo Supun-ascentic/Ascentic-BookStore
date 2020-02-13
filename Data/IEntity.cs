@@ -11,6 +11,6 @@ namespace Ascentic_BookStore.Data
 
     public interface IEntity
     {
-        int Id { get; set; }
+        int ID { get; set; }
     }
 }

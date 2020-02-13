@@ -1,13 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Ascentic_BookStore.Models;
-
-namespace Ascentic_BookStore.Data
+namespace Ascentic_BookStore.Data.EFCore
 {
-    public class BookStoreContext : DbContext
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Ascentic_BookStore.Models;
+    using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore;
+
+    public class BookStoreContext :DbContext
     {
         public BookStoreContext (DbContextOptions<BookStoreContext> options)
             : base(options)
@@ -17,8 +20,8 @@ namespace Ascentic_BookStore.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<BookAuthor>()
-                .HasKey(t => new { t.BookId, t.AuthorId });
+           /* modelBuilder.Entity<BookAuthor>()
+                .HasKey(t => new { t.BookId, t.AuthorId });*/
 
             modelBuilder.Entity<BookAuthor>()
                 .HasOne(pt => pt.Book)
@@ -33,5 +36,11 @@ namespace Ascentic_BookStore.Data
 
 
         public DbSet<Ascentic_BookStore.Models.Book> Book { get; set; }
+
+
+
+
+
+
     }
 }

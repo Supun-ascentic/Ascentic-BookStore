@@ -8,8 +8,10 @@ using Ascentic_BookStore.Data;
 namespace Ascentic_BookStore
 {
     using Ascentic_BookStore.Data;
+    using Ascentic_BookStore.Data.EFCore;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
@@ -44,6 +46,12 @@ namespace Ascentic_BookStore
 
             services.AddDbContext<BookStoreContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("BookStoreContext")));
+
+            services.AddScoped<EfCoreBookRepository>();
+
+          /*  services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<BookStoreContext>()
+                .AddDefaultTokenProviders();*/
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

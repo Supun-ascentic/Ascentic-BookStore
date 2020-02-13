@@ -7,10 +7,11 @@ namespace Ascentic_BookStore.Models
     using System.ComponentModel.DataAnnotations;
     using Ascentic_BookStore.Data;
 
-    public class Author
+    public class Author: IEntity
     {
+        [Key]
         [Required]
-        public string AuthorId { get; set; }
+        public int ID { get; set; }
 
         [Required]
         public string Name { get; set; }

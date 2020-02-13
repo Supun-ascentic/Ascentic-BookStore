@@ -1,16 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Ascentic_BookStore.Models
+﻿namespace Ascentic_BookStore.Models
 {
-    public class BookAuthor
+    using Ascentic_BookStore.Data;
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.Linq;
+    using System.Threading.Tasks;
+
+    public class BookAuthor : IEntity
     {
-        public string BookId { get; set; }
+        [Key]
+        [Required]
+        public int ID { get; set; }
+
+        public int BookId { get; set; }
         public Book Book { get; set; }
 
-        public string AuthorId { get; set; }
+        public int AuthorId { get; set; }
         public Author Author { get; set; }
     }
 }
