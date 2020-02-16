@@ -12,23 +12,23 @@ namespace Ascentic_BookStore.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BookController : BaseController<Book, EfCoreBookRepository>
+    public class AuthorController : BaseController<Author, EfCoreAuthorRepository>
     {
-
-        private readonly EfCoreBookRepository repository;
-        public BookController(EfCoreBookRepository repository)
+        private readonly EfCoreAuthorRepository repository;
+        public AuthorController(EfCoreAuthorRepository repository)
             : base(repository)
         {
             this.repository = repository;
         }
 
+
         // GET: api/[controller]
         [Authorize]
         [HttpGet]
-        [Route("get_books_with_all_Details")]
-        public async Task<ActionResult<IEnumerable<Book>>> GetBooksWithAllDetails()
+        [Route("get_authors_with_books")]
+        public async Task<ActionResult<IEnumerable<Author>>> GetAuthorsWithBooks()
         {
-            return await this.repository.GetBooksWithAllDetails();
+            return await this.repository.GetAuthorsWithBooks();
         }
     }
 }

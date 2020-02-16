@@ -10,7 +10,7 @@ namespace Ascentic_BookStore.Data.EFCore
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
 
-    public class BookStoreContext :DbContext
+    public class BookStoreContext : IdentityDbContext
     {
         public BookStoreContext (DbContextOptions<BookStoreContext> options)
             : base(options)
@@ -20,8 +20,10 @@ namespace Ascentic_BookStore.Data.EFCore
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-           /* modelBuilder.Entity<BookAuthor>()
-                .HasKey(t => new { t.BookId, t.AuthorId });*/
+            base.OnModelCreating(modelBuilder);
+
+            /* modelBuilder.Entity<BookAuthor>()
+                 .HasKey(t => new { t.BookId, t.AuthorId });*/
 
             modelBuilder.Entity<BookAuthor>()
                 .HasOne(pt => pt.Book)
@@ -35,12 +37,15 @@ namespace Ascentic_BookStore.Data.EFCore
         }
 
 
-        public DbSet<Ascentic_BookStore.Models.Book> Book { get; set; }
+        public DbSet<Book> Book { get; set; }
 
+        public DbSet<Author> Author { get; set; }
 
+        public DbSet<BookAuthor> BookAuthor { get; set; }
 
+        public DbSet<BookRating> BookRating { get; set; }
 
-
+        public DbSet<Category> Category { get; set; }
 
     }
 }
