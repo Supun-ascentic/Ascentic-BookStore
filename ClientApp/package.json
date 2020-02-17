@@ -1,5 +1,5 @@
 {
-  "name": "ascentic_bookstore",
+  "name": "Ascentic.BookStore.API",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

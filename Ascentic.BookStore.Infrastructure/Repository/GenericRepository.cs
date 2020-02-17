@@ -1,17 +1,18 @@
 ﻿
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
-namespace Ascentic_BookStore.Data.EFCore
+namespace Ascentic.BookStore.Infrastructure.Repository
 {
-    public abstract class EfCoreRepository<TEntity, TContext> : IRepository<TEntity>
+    using Ascentic.BookStore.Domain.Interface;
+    using Microsoft.EntityFrameworkCore;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+
+    public abstract class GenericRepository<TEntity, TContext> : IRepository<TEntity>
         where TEntity : class, IEntity
         where TContext : DbContext
     {
         private readonly TContext context;
 
-        public EfCoreRepository(TContext context)
+        public GenericRepository(TContext context)
         {
             this.context = context;
         }

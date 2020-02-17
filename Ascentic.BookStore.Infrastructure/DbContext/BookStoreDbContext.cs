@@ -1,19 +1,15 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Ascentic_BookStore.Models;
-namespace Ascentic_BookStore.Data.EFCore
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
-    using Ascentic_BookStore.Models;
-    using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-    using Microsoft.EntityFrameworkCore;
+﻿
+using Ascentic.BookStore.Domain.Entity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
-    public class BookStoreContext : IdentityDbContext
+namespace Ascentic.BookStore.Infrastructure.DbContext
+{
+   
+
+    public class BookStoreDbContext : IdentityDbContext
     {
-        public BookStoreContext (DbContextOptions<BookStoreContext> options)
-            : base(options)
+        public BookStoreDbContext(DbContextOptions<BookStoreDbContext> options): base(options)
         {
         }
 

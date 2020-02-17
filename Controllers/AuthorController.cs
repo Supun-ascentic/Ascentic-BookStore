@@ -1,29 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Ascentic_BookStore.Data.EFCore;
-using Ascentic_BookStore.Models;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-
-namespace Ascentic_BookStore.Controllers
+﻿namespace Ascentic.BookStore.API.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Ascentic.BookStore.Domain.DTO;
+    using Ascentic.BookStore.Domain.Entity;
+    using Ascentic.BookStore.Infrastructure.Repository;
+    using AutoMapper;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc;
+
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthorController : BaseController<Author, EfCoreAuthorRepository>
+    public class AuthorController : BaseController<Author,AuthorDTO,AuthorRepository>
     {
-        private readonly EfCoreAuthorRepository repository;
-        public AuthorController(EfCoreAuthorRepository repository)
-            : base(repository)
+        private readonly AuthorRepository repository;
+
+        public AuthorController(AuthorRepository repository, IMapper mapper)
+            : base(repository, mapper)
         {
             this.repository = repository;
         }
 
 
         // GET: api/[controller]
-        [Authorize]
+       // [Authorize]
         [HttpGet]
         [Route("get_authors_with_books")]
         public async Task<ActionResult<IEnumerable<Author>>> GetAuthorsWithBooks()

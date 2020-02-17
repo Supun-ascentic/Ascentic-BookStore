@@ -1,17 +1,17 @@
-﻿namespace Ascentic_BookStore.Data.EFCore
+﻿namespace Ascentic.BookStore.Infrastructure.Repository
 {
-    using Ascentic_BookStore.Data.EFCore;
-    using Ascentic_BookStore.Models;
+    using Ascentic.BookStore.Domain.Entity;
+    using Ascentic.BookStore.Infrastructure.DbContext;
     using Microsoft.EntityFrameworkCore;
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    public class EfCoreBookRepository : EfCoreRepository<Book, BookStoreContext>
+    public class BookRepository : GenericRepository<Book, BookStoreDbContext>
     {
 
      
-        private readonly BookStoreContext context;
-        public EfCoreBookRepository(BookStoreContext context)
+        private readonly BookStoreDbContext context;
+        public BookRepository(BookStoreDbContext context)
             : base(context)
         {
             this.context = context;

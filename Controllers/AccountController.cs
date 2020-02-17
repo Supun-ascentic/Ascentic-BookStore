@@ -6,6 +6,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Ascentic.BookStore.Domain.DTO;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -32,7 +33,7 @@ namespace Ascentic_BookStore.Controllers
         }
 
         [HttpPost]
-        public async Task<object> Login([FromBody] LoginDto model)
+        public async Task<object> Login([FromBody] LoginDTO model)
         {
             var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
 
@@ -46,7 +47,7 @@ namespace Ascentic_BookStore.Controllers
         }
 
         [HttpPost]
-        public async Task<object> Register([FromBody] RegisterDto model)
+        public async Task<object> Register([FromBody] RegisterDTO model)
         {
             var user = new IdentityUser
             {
@@ -92,24 +93,5 @@ namespace Ascentic_BookStore.Controllers
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        public class LoginDto
-        {
-            [Required]
-            public string Email { get; set; }
-
-            [Required]
-            public string Password { get; set; }
-
-        }
-
-        public class RegisterDto
-        {
-            [Required]
-            public string Email { get; set; }
-
-            [Required]
-            [StringLength(100, ErrorMessage = "PASSWORD_MIN_LENGTH", MinimumLength = 6)]
-            public string Password { get; set; }
-        }
     }
 }

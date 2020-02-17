@@ -1,6 +1,6 @@
 {
-  "short_name": "Ascentic_BookStore",
-  "name": "Ascentic_BookStore",
+  "short_name": "Ascentic.BookStore.API",
+  "name": "Ascentic.BookStore.API",
   "icons": [
     {
       "src": "favicon.ico",

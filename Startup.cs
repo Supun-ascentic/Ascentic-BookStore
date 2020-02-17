@@ -1,14 +1,13 @@
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Ascentic_BookStore.Data;
+
 // <copyright file="Startup.cs" company="supun-ascentic">
 // Copyright (c) supun-ascentic. All rights reserved.
 // </copyright>
 
-namespace Ascentic_BookStore
+namespace Ascentic.BookStore.API
 {
-    using Ascentic_BookStore.Data;
-    using Ascentic_BookStore.Data.EFCore;
+    using Ascentic.BookStore.Infrastructure.DbContext;
+    using Ascentic.BookStore.Infrastructure.Repository;
+    using AutoMapper;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -37,35 +36,36 @@ namespace Ascentic_BookStore
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+           
+
             services.AddControllersWithViews()
                 .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
 
             // In production, the React files will be served from this directory
-            services.AddSpaStaticFiles(configuration =>
+         /*   services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/build";
-            });
+            });*/
 
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc(name: "v1", new OpenApiInfo { Title = "My API", Version = "v1" });
             });
 
-            services.AddDbContext<BookStoreContext>(options =>
+            services.AddDbContext<BookStoreDbContext>(options =>
                     options.UseSqlServer(this.Configuration.GetConnectionString("BookStoreContext")));
 
-           
-
-            services.AddScoped<EfCoreBookRepository>();
-            services.AddScoped<EfCoreAuthorRepository>();
-            services.AddScoped<EfCoreCategoryRepository>();
-            services.AddScoped<EfCoreRatingRepository>();
+            services.AddScoped<BookRepository>();
+            services.AddScoped<AuthorRepository>();
+            services.AddScoped<CategoryRepository>();
+            services.AddScoped<RatingRepository>();
 
             // ===== Add Identity ========
             services.AddIdentity<IdentityUser, IdentityRole>()
-                .AddEntityFrameworkStores<BookStoreContext>()
+                .AddEntityFrameworkStores<BookStoreDbContext>()
                 .AddDefaultTokenProviders();
 
+            services.AddAutoMapper(typeof(Startup));
 
             // ===== Add Jwt Authentication ========
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear(); // => remove default claims
@@ -92,7 +92,7 @@ namespace Ascentic_BookStore
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, BookStoreContext dbContext)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, BookStoreDbContext dbContext)
         {
             if (env.IsDevelopment())
             {
@@ -112,7 +112,7 @@ namespace Ascentic_BookStore
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseSpaStaticFiles();
+           // app.UseSpaStaticFiles();
 
           
 
@@ -140,17 +140,16 @@ namespace Ascentic_BookStore
                     pattern: "{controller}/{action=Index}/{id?}");
             });
 
-            app.UseSpa(spa =>
-            {
-                spa.Options.SourcePath = "ClientApp";
+            /*  app.UseSpa(spa =>
+              {
+                  spa.Options.SourcePath = "ClientApp";
 
-                if (env.IsDevelopment())
-                {
-                    spa.UseReactDevelopmentServer(npmScript: "start");
-                }
-            });
+                  if (env.IsDevelopment())
+                  {
+                      spa.UseReactDevelopmentServer(npmScript: "start");
+                  }
+              });*/
 
-            
         }
     }
 }

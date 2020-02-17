@@ -1,6 +1,6 @@
-﻿namespace Ascentic_BookStore.Models
+﻿namespace Ascentic.BookStore.Domain.Entity
 {
-    using Ascentic_BookStore.Data;
+    using Ascentic.BookStore.Domain.Interface;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;

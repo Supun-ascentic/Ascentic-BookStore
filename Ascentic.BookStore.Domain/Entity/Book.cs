@@ -1,13 +1,13 @@
 ﻿// <copyright file="Book.cs" company="supun-ascentic">
 // Copyright (c) supun-ascentic. All rights reserved.
 // </copyright>
-namespace Ascentic_BookStore.Models
+namespace Ascentic.BookStore.Domain.Entity
 {
+    using Ascentic.BookStore.Domain.Interface;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    using Ascentic_BookStore.Data;
 
     public class Book : IEntity
     {

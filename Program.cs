@@ -2,7 +2,7 @@
 // Copyright (c) supun-ascentic. All rights reserved.
 // </copyright>
 
-namespace Ascentic_BookStore
+namespace Ascentic.BookStore.API
 {
     using System;
     using System.Collections.Generic;
