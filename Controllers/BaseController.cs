@@ -50,11 +50,11 @@ namespace Ascentic.BookStore.API.Controllers
             [HttpPut("{id}")]
             public async Task<IActionResult> Put(int id, TDTO tDto)
             {
-                var item = this.mapper.Map<TEntity>(tDto);
-                /* if (id != item.ID)
-                 {
-                     return BadRequest();
-                 }*/
+             var item = this.mapper.Map<TEntity>(tDto);
+            if (id != item.ID)
+            {
+                return BadRequest();
+            }
             await repository.Update(item);
                 return NoContent();
             }

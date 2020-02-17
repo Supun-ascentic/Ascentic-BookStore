@@ -8,6 +8,7 @@ namespace Ascentic.BookStore.Domain.DTO
 {
     public class RatingDTO : IBaseDTO
     {
+        public int ID { get; set; }
         [Required]
         public double Rating { get; set; }
 

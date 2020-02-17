@@ -15,9 +15,25 @@
     [ApiController]
     public class BookRatingController : BaseController<BookRating,RatingDTO, RatingRepository>
     {
+        private readonly RatingRepository repository;
+
         public BookRatingController(RatingRepository repository, IMapper mapper)
-            : base(repository,mapper)
+            : base(repository, mapper)
         {
+            this.repository = repository;
+        }
+
+        // GET: api/[controller]/5
+        [HttpGet("get_rating_by_bookid/{id}")]
+        public async Task<ActionResult<IEnumerable<BookRating>>> GetRatingByBookId(int id)
+        {
+            var item = await this.repository.GetRatingByBookId(id);
+            if (item == null)
+            {
+                return NotFound();
+            }
+
+            return item;
         }
     }
 }

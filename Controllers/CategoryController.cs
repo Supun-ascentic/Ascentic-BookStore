@@ -15,9 +15,13 @@
     [ApiController]
     public class CategoryController : BaseController<Category,CategoryDTO, CategoryRepository>
     {
+      
         public CategoryController(CategoryRepository repository, IMapper mapper)
             : base(repository, mapper)
         {
+            
         }
+
+
     }
 }
