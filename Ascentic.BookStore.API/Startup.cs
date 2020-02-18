@@ -36,16 +36,9 @@ namespace Ascentic.BookStore.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-           
-
             services.AddControllersWithViews()
                 .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
 
-            // In production, the React files will be served from this directory
-         /*   services.AddSpaStaticFiles(configuration =>
-            {
-                configuration.RootPath = "ClientApp/build";
-            });*/
 
             services.AddSwaggerGen(c =>
             {
@@ -112,7 +105,6 @@ namespace Ascentic.BookStore.API
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-           // app.UseSpaStaticFiles();
 
           
 
@@ -140,16 +132,7 @@ namespace Ascentic.BookStore.API
                     pattern: "{controller}/{action=Index}/{id?}");
             });
 
-            /*  app.UseSpa(spa =>
-              {
-                  spa.Options.SourcePath = "ClientApp";
-
-                  if (env.IsDevelopment())
-                  {
-                      spa.UseReactDevelopmentServer(npmScript: "start");
-                  }
-              });*/
-
+           
         }
     }
 }
