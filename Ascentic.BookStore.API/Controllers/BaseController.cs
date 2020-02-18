@@ -55,8 +55,8 @@ namespace Ascentic.BookStore.API.Controllers
             {
                 return BadRequest();
             }
-            await repository.Update(item);
-                return NoContent();
+             await repository.Update(item);
+             return NoContent();
             }
 
             // POST: api/[controller]

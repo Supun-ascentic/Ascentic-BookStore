@@ -36,6 +36,7 @@ namespace Ascentic.BookStore.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+           
             services.AddControllersWithViews()
                 .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
 
@@ -58,6 +59,7 @@ namespace Ascentic.BookStore.API
                 .AddEntityFrameworkStores<BookStoreDbContext>()
                 .AddDefaultTokenProviders();
 
+            services.AddCors();
             services.AddAutoMapper(typeof(Startup));
 
             // ===== Add Jwt Authentication ========
@@ -99,7 +101,6 @@ namespace Ascentic.BookStore.API
                 app.UseHsts();
             }
 
-
             // ===== Create tables ======
             dbContext.Database.EnsureCreated();
 
@@ -120,6 +121,13 @@ namespace Ascentic.BookStore.API
 
             app.UseRouting();
 
+            app.UseCors(
+                  options => 
+                  options.WithOrigins("http://localhost:3000")
+                  .AllowAnyHeader()
+                  .AllowAnyMethod()
+                  .AllowCredentials()
+              );
 
             // ===== Use Authentication ======
             app.UseAuthentication();
