@@ -20,12 +20,11 @@ namespace Ascentic.BookStore.API.Controllers
             private readonly TRepository repository;
             private readonly IMapper mapper;
 
-        public BaseController(TRepository repository, IMapper mapper)
+            public BaseController(TRepository repository, IMapper mapper)
             {
                 this.mapper = mapper;
                 this.repository = repository;
             }
-
 
             // GET: api/[controller]
             [HttpGet]
@@ -48,15 +47,15 @@ namespace Ascentic.BookStore.API.Controllers
 
             // PUT: api/[controller]/5
             [HttpPut("{id}")]
-            public async Task<IActionResult> Put(int id, TDTO tDto)
+            public async Task<ActionResult<TEntity>> Put(int id, TDTO tDto)
             {
              var item = this.mapper.Map<TEntity>(tDto);
-            if (id != item.ID)
+             if (id != item.ID)
             {
                 return BadRequest();
             }
              await repository.Update(item);
-             return NoContent();
+             return item;
             }
 
             // POST: api/[controller]

@@ -13,7 +13,7 @@ export interface IFormState {
     loading: boolean;
 }
 
-class EditCustomer extends React.Component<RouteComponentProps<any>, IFormState> {
+class EditBook extends React.Component<RouteComponentProps<any>, IFormState> {
     constructor(props: RouteComponentProps) {
         super(props);
         this.state = {
@@ -107,4 +107,4 @@ class EditCustomer extends React.Component<RouteComponentProps<any>, IFormState>
         )
     }
 }
-export default withRouter(EditCustomer)
+export default withRouter(EditBook)

@@ -50,7 +50,8 @@ namespace Ascentic.BookStore.Infrastructure.Repository
 
         public async Task<TEntity> Update(TEntity entity)
         {
-            context.Entry(entity).State = EntityState.Modified;
+           // context.Entry(entity).State = EntityState.Modified;
+            context.Update(entity);
             await context.SaveChangesAsync();
             return entity;
         }

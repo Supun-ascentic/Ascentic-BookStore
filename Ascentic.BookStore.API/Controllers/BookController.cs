@@ -20,18 +20,36 @@
         private readonly BookRepository repository;
 
         public BookController(BookRepository repository, IMapper mapper)
-            : base(repository,mapper)
+            : base(repository, mapper)
         {
             this.repository = repository;
         }
 
         // GET: api/[controller]
-       // [Authorize]
+        // [Authorize]
         [HttpGet]
         [Route("get_books_with_all_Details")]
         public async Task<ActionResult<IEnumerable<Book>>> GetBooksWithAllDetails()
         {
             return await this.repository.GetBooksWithAllDetails();
+        }
+
+        // GET: api/[controller]
+        // [Authorize]
+        [HttpGet]
+        [Route("get_books_sorted_by_title")]
+        public async Task<ActionResult<IEnumerable<Book>>> GetBooksSortedByTitle()
+        {
+            return await this.repository.GetBooksSortedByTitle();
+        }
+
+        // GET: api/[controller]
+        // [Authorize]
+        [HttpGet]
+        [Route("get_books_sorted_by_author")]
+        public async Task<ActionResult<IEnumerable<Book>>> GetBooksSortedByAuthor()
+        {
+            return await this.repository.GetBooksSortedByAuthor();
         }
     }
 }
