@@ -21,15 +21,33 @@ namespace Ascentic.BookStore.Infrastructure.DbContext
             /* modelBuilder.Entity<BookAuthor>()
                  .HasKey(t => new { t.BookId, t.AuthorId });*/
 
+
+            
+
             modelBuilder.Entity<BookAuthor>()
                 .HasOne(pt => pt.Book)
                 .WithMany(p => p.BookAuthor)
-                .HasForeignKey(pt => pt.BookId);
+                .HasForeignKey(pt => pt.BookId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<BookAuthor>()
                 .HasOne(pt => pt.Author)
                 .WithMany(t => t.BookAuthor)
-                .HasForeignKey(pt => pt.AuthorId);
+                .HasForeignKey(pt => pt.AuthorId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+
+            modelBuilder.Entity<BookCategory>()
+                .HasOne(pt => pt.Book)
+                .WithMany(p => p.BookCategory)
+                .HasForeignKey(pt => pt.BookId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<BookCategory>()
+                .HasOne(pt => pt.Category)
+                .WithMany(t => t.BookCategory)
+                .HasForeignKey(pt => pt.CategoryId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
 
 

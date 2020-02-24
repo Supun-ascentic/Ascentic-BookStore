@@ -12,8 +12,7 @@ namespace Ascentic.BookStore.Domain.DTO
         [Required]
         public string Title { get; set; }
 
-        [Required]
-        public int CategoryId { get; set; }
+        public List<BookCategoryDTO> BookCategory { get; set; }
 
         public List<BookAuthorDTO> BookAuthor { get; set; }
 

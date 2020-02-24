@@ -13,17 +13,17 @@ export interface IValues {
 }
 export interface IFormState {
     id: number,
-    book: any,
+    author: any,
     ratings: any,
     loading: false,
 }
 
-class ViewBookDetails extends React.Component<RouteComponentProps<any>, IFormState> {
+class ViewAuthorDetails extends React.Component<RouteComponentProps<any>, IFormState> {
     constructor(props: RouteComponentProps) {
         super(props);
         this.state = {
             id: this.props.match.params.id,
-            book: {},
+            author: {},
             ratings:{},
             loading: false
         }
@@ -33,17 +33,18 @@ class ViewBookDetails extends React.Component<RouteComponentProps<any>, IFormSta
         const config = {
             headers: { Authorization: `Bearer ${localStorage.getItem('AccessToken')}`}
         };
-        axios.get(`https://localhost:44359/api/Book/get_full_book_details/${this.state.id}`,config).then(data => {
-            this.setState({ book: data.data });
+        axios.get(`https://localhost:44359/api/Author/get_full_author_details/${this.state.id}`,config).then(data => {
+            this.setState({ author: data.data });
             console.log(this.state);
         }).catch(err=>{
             this.HandleError(err);
           })
     }
 
+
     RedirectToLogin() {
         this.props.history.push("/login");
-      }
+    }
   
       HandleError(err:any){
         if(err.response.status==401){
@@ -55,16 +56,15 @@ class ViewBookDetails extends React.Component<RouteComponentProps<any>, IFormSta
       }
 
 
-
     public render() {
-        const {  loading,book,ratings } = this.state;
+        const {  loading,author,ratings } = this.state;
         return (
             <div style={{background: '#fff', padding: 24,marginBottom:20, minHeight: 800 }}>
                <Layout style={{background: '#fff', padding: 24,marginBottom:20, minHeight: 800 }}>
                     <Sider style={{background: '#fff',maxWidth:900}}>
                         <div>
                             <Card
-                                cover={<img alt="example" src={book.photoURL?book.photoURL:"/book-cover-placeholder.jpg"} />}
+                                cover={<img alt="example" src={author.photoURL?author.photoURL:"/book-cover-placeholder.jpg"} />}
                             >
                            
                             </Card>
@@ -73,28 +73,24 @@ class ViewBookDetails extends React.Component<RouteComponentProps<any>, IFormSta
                     <Content>
                         <div style={{padding: 50}}>
                             <Descriptions title="Book Details">
-                                <Descriptions.Item label="Title">{book.title}</Descriptions.Item>
-                            <Descriptions.Item label="Author">
-                                {book.bookAuthor && book.bookAuthor.map((authorData: any) =>
-                                     <Link to={`/author-details/${authorData.author.id}`} key={authorData.author.id}>
-                                         <p style={{paddingLeft:5}} >{authorData.author.name}</p>
+                                <Descriptions.Item label="Name">{author.name}</Descriptions.Item>
+                            <Descriptions.Item label="Books">
+                                {author.bookAuthor && author.bookAuthor.map((bookData: any) =>
+                                    <Link to={`/book-details/${bookData.book.id}`} key={bookData.book.id}>
+                                        <p style={{paddingLeft:5}} >{bookData.book.title}</p>
                                      </Link>
-                                     
                                 )}
                             </Descriptions.Item>
-                            <Descriptions.Item label="Price">{book.price}
+                            <Descriptions.Item label="Birthday">{author.birthDay}
                             </Descriptions.Item>
-                            <Descriptions.Item label="Category">
-                                {book.bookCategory && book.bookCategory.map((categoryData: any) =>
-                                     <p style={{paddingLeft:5}} key={categoryData.category.id}>{categoryData.category.categoryName}</p>
-                                )}
+                            <Descriptions.Item label="BirthPlace">{author.birthPlace}
                             </Descriptions.Item>
-                            <Descriptions.Item label="Description">
-                                {book.description}
+                            <Descriptions.Item label="Facts">
+                                {author.facts}
                             </Descriptions.Item>
                             </Descriptions>  
                             
-                            <Link to={`book-edit/${book.id}`} >Edit</Link>
+                           
                         </div>       
                     </Content>
                 </Layout>
@@ -102,4 +98,4 @@ class ViewBookDetails extends React.Component<RouteComponentProps<any>, IFormSta
         )
     }
 }
-export default withRouter(ViewBookDetails)
+export default withRouter(ViewAuthorDetails)

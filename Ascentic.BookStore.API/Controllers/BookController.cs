@@ -26,7 +26,7 @@
         }
 
         // GET: api/[controller]
-        // [Authorize]
+        [Authorize]
         [HttpGet]
         [Route("get_books_with_all_Details")]
         public async Task<ActionResult<IEnumerable<Book>>> GetBooksWithAllDetails()
@@ -35,7 +35,7 @@
         }
 
         // GET: api/[controller]
-        // [Authorize]
+        [Authorize]
         [HttpGet]
         [Route("get_books_sorted_by_title")]
         public async Task<ActionResult<IEnumerable<Book>>> GetBooksSortedByTitle()
@@ -44,12 +44,25 @@
         }
 
         // GET: api/[controller]
-        // [Authorize]
+        [Authorize]
         [HttpGet]
         [Route("get_books_sorted_by_author")]
         public async Task<ActionResult<IEnumerable<Book>>> GetBooksSortedByAuthor()
         {
             return await this.repository.GetBooksSortedByAuthor();
+        }
+
+        // GET: api/[controller]/5
+        [Authorize]
+        [HttpGet("get_full_book_details/{id}")]
+        public async Task<ActionResult<Book>> GetAllDetails(int id)
+        {
+            var item = await repository.GetAllDetails(id);
+            if (item == null)
+            {
+                return NotFound();
+            }
+            return item;
         }
     }
 }

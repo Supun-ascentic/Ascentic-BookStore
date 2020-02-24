@@ -24,6 +24,15 @@
                 .ThenInclude(bookAuthor => bookAuthor.Book)
                 .ToListAsync();
         }
+
+
+        public async Task<Author> GetAuthorAllDetails(int id)
+        {
+            return await context.Set<Author>()
+                .Include(author => author.BookAuthor)
+                .ThenInclude(bookAuthor => bookAuthor.Book)
+                .SingleOrDefaultAsync(i => i.ID == id);
+        }
     }
 }
 

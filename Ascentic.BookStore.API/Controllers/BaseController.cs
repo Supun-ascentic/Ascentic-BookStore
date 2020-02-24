@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Ascentic.BookStore.Domain.DTO;
 using Ascentic.BookStore.Domain.Interface;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -27,6 +28,7 @@ namespace Ascentic.BookStore.API.Controllers
             }
 
             // GET: api/[controller]
+            [Authorize]
             [HttpGet]
             public async Task<ActionResult<IEnumerable<TEntity>>> Get()
             {
@@ -34,6 +36,7 @@ namespace Ascentic.BookStore.API.Controllers
             }
 
             // GET: api/[controller]/5
+            [Authorize]
             [HttpGet("{id}")]
             public async Task<ActionResult<TEntity>> Get(int id)
             {
@@ -46,6 +49,7 @@ namespace Ascentic.BookStore.API.Controllers
             }
 
             // PUT: api/[controller]/5
+            [Authorize]
             [HttpPut("{id}")]
             public async Task<ActionResult<TEntity>> Put(int id, TDTO tDto)
             {
@@ -59,6 +63,7 @@ namespace Ascentic.BookStore.API.Controllers
             }
 
             // POST: api/[controller]
+            [Authorize]
             [HttpPost]
             public async Task<ActionResult<TEntity>> Post(TDTO tDto)
             {
@@ -68,6 +73,7 @@ namespace Ascentic.BookStore.API.Controllers
             }
 
             // DELETE: api/[controller]/5
+            [Authorize]
             [HttpDelete("{id}")]
             public async Task<ActionResult<TEntity>> Delete(int id)
             {

@@ -26,12 +26,26 @@
 
 
         // GET: api/[controller]
-       // [Authorize]
+       [Authorize]
         [HttpGet]
         [Route("get_authors_with_books")]
         public async Task<ActionResult<IEnumerable<Author>>> GetAuthorsWithBooks()
         {
             return await this.repository.GetAuthorsWithBooks();
+        }
+
+
+        // GET: api/[controller]/5
+        [Authorize]
+        [HttpGet("get_full_author_details/{id}")]
+        public async Task<ActionResult<Author>> GetAllDetails(int id)
+        {
+            var item = await repository.GetAuthorAllDetails(id);
+            if (item == null)
+            {
+                return NotFound();
+            }
+            return item;
         }
     }
 }

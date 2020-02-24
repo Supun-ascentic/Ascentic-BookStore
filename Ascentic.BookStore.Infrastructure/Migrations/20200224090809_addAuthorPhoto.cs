@@ -2,13 +2,13 @@
 
 namespace Ascentic.BookStore.Infrastructure.Migrations
 {
-    public partial class photoUrl : Migration
+    public partial class addAuthorPhoto : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<string>(
                 name: "PhotoURL",
-                table: "Book",
+                table: "Author",
                 nullable: true);
         }
 
@@ -16,7 +16,7 @@ namespace Ascentic.BookStore.Infrastructure.Migrations
         {
             migrationBuilder.DropColumn(
                 name: "PhotoURL",
-                table: "Book");
+                table: "Author");
         }
     }
 }

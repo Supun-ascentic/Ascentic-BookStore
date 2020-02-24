@@ -23,9 +23,20 @@
             return await this.context.Set<Book>()
                 .Include(book=> book.BookAuthor)
                 .ThenInclude(bookAuthor => bookAuthor.Author)
-                .Include(book => book.Category)
+                .Include(book => book.BookCategory)
+                .ThenInclude(BookCategory => BookCategory.Category)
                 .Include(book => book.Ratings)
                 .ToListAsync();
+        }
+
+        public async Task<Book> GetAllDetails(int id)
+        {
+            return await context.Set<Book>().Include(book => book.BookAuthor)
+                .ThenInclude(bookAuthor => bookAuthor.Author)
+                .Include(book => book.BookCategory)
+                .ThenInclude(BookCategory => BookCategory.Category)
+                .Include(book => book.Ratings)
+                .SingleOrDefaultAsync(i => i.ID == id);
         }
 
         public async Task<List<Book>> GetBooksSortedByTitle()
@@ -33,7 +44,8 @@
             return await this.context.Set<Book>()
                 .Include(book => book.BookAuthor)
                 .ThenInclude(bookAuthor => bookAuthor.Author)
-                .Include(book => book.Category)
+                .Include(book => book.BookCategory)
+                .ThenInclude(BookCategory => BookCategory.Category)
                 .Include(book => book.Ratings)
                 .OrderBy(book => book.Title)
                 .ToListAsync();
@@ -44,7 +56,8 @@
             var book= await this.context.Set<Book>()
                 .Include(book => book.BookAuthor)
                 .ThenInclude(bookAuthor => bookAuthor.Author)
-                .Include(book => book.Category)
+                .Include(book => book.BookCategory)
+                .ThenInclude(BookCategory => BookCategory.Category)
                 .Include(book => book.Ratings)
                 .ToListAsync();
 

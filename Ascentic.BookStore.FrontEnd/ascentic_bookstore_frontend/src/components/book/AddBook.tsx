@@ -27,10 +27,11 @@ export interface IFormState {
     categoriesList:any;
     authorsList:any;
     form: any;
+    postingData:any;
     
 }
 type Props=RouteComponentProps<any> & FormComponentProps
-class EditBook extends React.Component<Props, IFormState> {
+class AddBook extends React.Component<Props, IFormState> {
     constructor(props: any) {
         super(props);
         this.state = {
@@ -44,31 +45,17 @@ class EditBook extends React.Component<Props, IFormState> {
             authorsList:[],
             addedAuthors:[],
             addedCategories:[],
-            form: {}
+            form: {},
+            postingData:{}
             
         }
     }
     
     public componentDidMount(): void {
+
         const config = {
             headers: { Authorization: `Bearer ${localStorage.getItem('AccessToken')}`}
         };
-
-        axios.get(`https://localhost:44359/api/Book/get_full_book_details/${this.state.id}`,config).then(data => {
-            this.setState({ book: data.data });
-            this.setState({ values: data.data });
-            this.setState({ addedAuthors: data.data.bookAuthor });
-            this.setState({ addedCategories: data.data.bookCategory });
-
-            this.props.form.setFieldsValue({
-                title: data.data.title,
-                description: data.data.description,
-                price: data.data.price,
-                photoURL:data.data.photoURL
-          })
-        }).catch(err=>{
-            this.HandleError(err);
-          })
 
         axios.get(`https://localhost:44359/api/Category`,config).then(data => {
             this.setState({ categoriesList: data.data });
@@ -78,34 +65,6 @@ class EditBook extends React.Component<Props, IFormState> {
 
         axios.get(`https://localhost:44359/api/Author`,config).then(data => {
             this.setState({ authorsList: data.data });
-        }).catch(err=>{
-            this.HandleError(err);
-          })
-    }
-
-    private processFormSubmission = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
-        e.preventDefault();
-        this.setState({ loading: true });
-        let ValueData = this.state.values;
-        
-        this.setValues({ "bookCategory": this.state.addedCategories })
-        this.setValues({ "bookAuthor": this.state.addedAuthors })
-
-        let config = {
-            headers: {
-                'Content-Type': 'application/json; charset=utf-8',
-                'Access-Control-Allow-Origin': '*',
-                Authorization: `Bearer ${localStorage.getItem('AccessToken')}`
-            }
-        }
-        
-       console.log(this.state.values);
-       
-       axios.put(`https://localhost:44359/api/Book/${this.state.id}`, this.state.values,config).then(data => {
-            this.setState({ submitSuccess: true, loading: false })
-            setTimeout(() => {
-                this.props.history.push('/');
-            }, 1500)
         }).catch(err=>{
             this.HandleError(err);
           })
@@ -123,6 +82,38 @@ class EditBook extends React.Component<Props, IFormState> {
           console.log(err)
         }
       }
+
+    private processFormSubmission = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
+        e.preventDefault();
+        this.setState({ loading: true });
+       // let ValueData = this.state.values;
+        
+
+        let ValueData={ ...this.state.values, 
+            "bookCategory": this.state.addedCategories,
+            "bookAuthor": this.state.addedAuthors  
+        }
+         
+
+        let config = {
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8',
+                'Access-Control-Allow-Origin': '*',
+                Authorization: `Bearer ${localStorage.getItem('AccessToken')}`
+            }
+        }
+
+       console.log(this.state.values);
+       
+       axios.post(`https://localhost:44359/api/Book`, ValueData,config).then(data => {
+            this.setState({ submitSuccess: true, loading: false })
+            setTimeout(() => {
+                this.props.history.push('/');
+            }, 1500)
+        }).catch(err=>{
+            this.HandleError(err);
+          })
+    }
 
     private setValues = (values: IValues) => {
         this.setState({ values: { ...this.state.values, ...values } });
@@ -156,7 +147,6 @@ class EditBook extends React.Component<Props, IFormState> {
             let isAuthorExists=AuthorData.findIndex((obj:any) => obj.author.id === authorDetails.id);
             if(isAuthorExists===-1){
                 let newAuthor={
-                    bookId:this.state.book.id,
                     authorId:authorDetails.id,
                     author:authorDetails
                 }
@@ -199,7 +189,6 @@ class EditBook extends React.Component<Props, IFormState> {
             let isCategoryExists=categoryData.findIndex((obj:any) => obj.category.id === categoryDetails.id);
             if(isCategoryExists===-1){
                 let newCategory={
-                    bookId:this.state.book.id,
                     categoryId:categoryDetails.id,
                     category:categoryDetails
                 }
@@ -246,7 +235,7 @@ class EditBook extends React.Component<Props, IFormState> {
 
                         <div>
                             <div className={"col-md-12 form-wrapper"}>
-                                <h2> Edit Book </h2>
+                                <h2> Add Book </h2>
                                
 
                                 {submitSuccess && (
@@ -257,20 +246,20 @@ class EditBook extends React.Component<Props, IFormState> {
                                     <Form.Item label="Title" {...formItemLayout}>
                                         {getFieldDecorator("title", {
                                             })(
-                                                <Input name="title" id="title" placeholder="input placeholder" onChange={this.handleInputChanges}/>
+                                                <Input name="title" id="title" placeholder="Enter book title" onChange={this.handleInputChanges}/>
                                             )
                                         }
                                     </Form.Item>
                                     <Form.Item label="Price" {...formItemLayout}>
                                         {getFieldDecorator("price", {
                                             })(
-                                                <Input name="price" id="price" placeholder="input placeholder" onChange={this.handleInputChanges}/>
+                                                <Input name="price" id="price" placeholder="Enter book price" onChange={this.handleInputChanges}/>
                                             )
                                         }
                                     </Form.Item>
                                     <Form.Item label="Description" {...formItemLayout}>
                                         {getFieldDecorator("description", {})(
-                                                <Input name="description" id="description" placeholder="input placeholder" onChange={this.handleInputChanges}/>
+                                                <Input name="description" id="description" placeholder="Enter book description" onChange={this.handleInputChanges}/>
                                             )
                                         }
                                     </Form.Item>
@@ -314,7 +303,7 @@ class EditBook extends React.Component<Props, IFormState> {
                                     </Form.Item>
                                     <Form.Item label="PhotoURL" {...formItemLayout}>
                                       {getFieldDecorator("photoURL", {})( 
-                                        <Input  id="photoURL" name="photoURL" placeholder="input placeholder" onChange={this.handleInputChanges}/>
+                                        <Input  id="photoURL" name="photoURL" placeholder="Enter book photoURl" onChange={this.handleInputChanges}/>
                                       )}
                                     </Form.Item>
                                     <Form.Item {...formItemLayout}>
@@ -330,4 +319,4 @@ class EditBook extends React.Component<Props, IFormState> {
     }
 }
 //export default withRouter(EditBook)
-export default Form.create()(EditBook);
+export default Form.create()(AddBook);

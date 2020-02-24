@@ -19,10 +19,7 @@ namespace Ascentic.BookStore.Domain.Entity
             [StringLength(60, MinimumLength = 3)]
             public string Title { get; set; }
 
-            [Required]
-            public int CategoryId { get; set; }
-
-            public Category Category { get; set; }
+            public List<BookCategory> BookCategory { get; set; }
 
             public List<BookRating> Ratings { get; set; }
 

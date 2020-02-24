@@ -18,5 +18,6 @@ namespace Ascentic.BookStore.Domain.DTO
         public string Facts { get; set; }
 
         public List<BookAuthorDTO> BookAuthor { get; set; }
+        public string PhotoURL { get; set; }
     }
 }

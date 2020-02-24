@@ -24,5 +24,7 @@ namespace Ascentic.BookStore.Domain.Entity
 
         public string Facts { get; set; }
 
+        public string PhotoURL { get; set; }
+
     }
 }

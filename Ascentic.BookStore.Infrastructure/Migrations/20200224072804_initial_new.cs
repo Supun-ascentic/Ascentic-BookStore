@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Ascentic.BookStore.Infrastructure.Migrations
 {
-    public partial class initial : Migration
+    public partial class initial_new : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -60,6 +60,22 @@ namespace Ascentic.BookStore.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Author", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Book",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(maxLength: 60, nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Description = table.Column<string>(nullable: true),
+                    PhotoURL = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Book", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -182,28 +198,6 @@ namespace Ascentic.BookStore.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Book",
-                columns: table => new
-                {
-                    ID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(maxLength: 60, nullable: false),
-                    CategoryId = table.Column<int>(nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Description = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Book", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_Book_Category_CategoryId",
-                        column: x => x.CategoryId,
-                        principalTable: "Category",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "BookAuthor",
                 columns: table => new
                 {
@@ -249,6 +243,32 @@ namespace Ascentic.BookStore.Infrastructure.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "BookCategory",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    BookId = table.Column<int>(nullable: false),
+                    CategoryId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BookCategory", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_BookCategory_Book_BookId",
+                        column: x => x.BookId,
+                        principalTable: "Book",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_BookCategory_Category_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Category",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -289,11 +309,6 @@ namespace Ascentic.BookStore.Infrastructure.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Book_CategoryId",
-                table: "Book",
-                column: "CategoryId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_BookAuthor_AuthorId",
                 table: "BookAuthor",
                 column: "AuthorId");
@@ -302,6 +317,16 @@ namespace Ascentic.BookStore.Infrastructure.Migrations
                 name: "IX_BookAuthor_BookId",
                 table: "BookAuthor",
                 column: "BookId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BookCategory_BookId",
+                table: "BookCategory",
+                column: "BookId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BookCategory_CategoryId",
+                table: "BookCategory",
+                column: "CategoryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_BookRating_BookId",
@@ -330,6 +355,9 @@ namespace Ascentic.BookStore.Infrastructure.Migrations
                 name: "BookAuthor");
 
             migrationBuilder.DropTable(
+                name: "BookCategory");
+
+            migrationBuilder.DropTable(
                 name: "BookRating");
 
             migrationBuilder.DropTable(
@@ -342,10 +370,10 @@ namespace Ascentic.BookStore.Infrastructure.Migrations
                 name: "Author");
 
             migrationBuilder.DropTable(
-                name: "Book");
+                name: "Category");
 
             migrationBuilder.DropTable(
-                name: "Category");
+                name: "Book");
         }
     }
 }

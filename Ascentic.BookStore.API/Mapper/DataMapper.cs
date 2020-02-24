@@ -15,6 +15,7 @@ namespace Ascentic.BookStore.Mapper
         {
             CreateMap<AuthorDTO, Author>();
             CreateMap<BookAuthorDTO, BookAuthor>();
+            CreateMap<BookCategoryDTO, BookCategory>();
             CreateMap<BookDTO, Book>();
             CreateMap<CategoryDTO, Category>();
             CreateMap<RatingDTO, BookRating>();

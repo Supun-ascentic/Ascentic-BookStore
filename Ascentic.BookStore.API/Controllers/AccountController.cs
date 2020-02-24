@@ -59,14 +59,12 @@ namespace Ascentic_BookStore.Controllers
             if (result.Succeeded)
             {
                 await _signInManager.SignInAsync(user, false);
-                return await GenerateJwtToken(model.Email, user);
-            }
-            else
-            {
-                return result;
+                return Ok();
             }
 
-            throw new ApplicationException("UNKNOWN_ERROR");
+            var message = string.Join(", ", result.Errors.Select(x => "Code " + x.Code + " Description" + x.Description));
+
+            throw new ApplicationException(message);
         }
 
         private async Task<object> GenerateJwtToken(string email, IdentityUser user)

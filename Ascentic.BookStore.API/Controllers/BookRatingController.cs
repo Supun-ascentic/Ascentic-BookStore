@@ -8,6 +8,7 @@
     using Ascentic.BookStore.Domain.Entity;
     using Ascentic.BookStore.Infrastructure.Repository;
     using AutoMapper;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
 
@@ -24,6 +25,7 @@
         }
 
         // GET: api/[controller]/5
+        [Authorize]
         [HttpGet("get_rating_by_bookid/{id}")]
         public async Task<ActionResult<IEnumerable<BookRating>>> GetRatingByBookId(int id)
         {

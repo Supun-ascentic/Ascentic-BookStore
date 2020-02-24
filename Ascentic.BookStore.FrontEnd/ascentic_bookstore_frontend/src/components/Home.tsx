@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Link, RouteComponentProps,useHistory  } from 'react-router-dom';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 
-import { Table, Divider, Tag,Input,Select,Card,Row,Col } from 'antd';
+import { Table, Divider, Tag,Input,Select,Card,Row,Col, Button } from 'antd';
 import "antd/dist/antd.css";
 
 import bookCoverPlaceholder from '../../public/book-cover-placeholder.jpg';
@@ -21,20 +21,36 @@ interface IState {
 
 
 export default class Home extends React.Component<RouteComponentProps, IState> {
+
+ 
+
     constructor(props: RouteComponentProps) {
         super(props);
         this.state = { books: [] }
     }
     componentDidMount(): void {
-        axios.get(`https://localhost:44359/api/Book/get_books_with_all_Details`).then(data => {
+        const config = {
+          headers: { Authorization: `Bearer ${localStorage.getItem('AccessToken')}`}
+        };
+        
+        axios.get(`https://localhost:44359/api/Book/get_books_with_all_Details`,config)
+        .then(data => {
             this.setState({ books: data.data })
+        }) 
+        .catch(err=>{
+          this.HandleError(err);
         })
     }
     deleteBook(id: number) {
-        axios.delete(`https://localhost:44359/api/Book/${id}`).then(data => {
+        const config = {
+          headers: { Authorization: `Bearer ${localStorage.getItem('AccessToken')}`}
+        };
+        axios.delete(`https://localhost:44359/api/Book/${id}`,config).then(data => {
             const index = this.state.books.findIndex(book => book.id === id);
             this.state.books.splice(index, 1);
             this.props.history.push('/');
+        }).catch(err=>{
+          this.HandleError(err);
         })
     }
 
@@ -46,15 +62,30 @@ export default class Home extends React.Component<RouteComponentProps, IState> {
       else if(value==="Title"){
         bookGetUrl="https://localhost:44359/api/Book/get_books_sorted_by_title";
       }
-      axios.get(bookGetUrl).then(data => {
+
+      const config = {
+        headers: { Authorization: `Bearer ${localStorage.getItem('AccessToken')}`}
+      };
+
+      axios.get(bookGetUrl,config).then(data => {
             this.setState({ books: data.data });
+      }).catch(err=>{
+        this.HandleError(err);
       })
     }
 
-    public OnBookClicked() {
-      let path = `/details`;
-      let history = useHistory();
-      history.push(path);
+    RedirectToLogin() {
+      let path = `/login`;
+      this.props.history.push("login");
+    }
+
+    HandleError(err:any){
+      if(err.response.status==401){
+        this.RedirectToLogin();
+      }
+      else{
+        console.log(err)
+      }
     }
   
 
@@ -73,16 +104,16 @@ export default class Home extends React.Component<RouteComponentProps, IState> {
                     <Option value="Title">Title</Option>
                   </Select>
                 </InputGroup>
+
+                <Link to={`book-create`} ><Button type="primary">Add a Book</Button></Link>
             </div>
-            <div style={{ background: '#fff', padding: 24, minHeight: 800 }}>
-              <Row gutter={16}>
+            <div style={{ background: '#fff', padding: 24}}>
+             <Row gutter={16}>
               {books && books.map(book =>
                 <Col span={5} key={book.id}>
-                  <Link to={`details/${book.id}`} >
+                  <Link to={`book-details/${book.id}`} >
                      <Card
-                        bordered={false}
                         hoverable
-                        style={{ width: 240,minHeight: 460,maxHeight: 500}}
                         cover={<img alt="example" src={book.photoURL?book.photoURL:"/book-cover-placeholder.jpg"} />}
                       >
                       <Meta title={book.title} />
