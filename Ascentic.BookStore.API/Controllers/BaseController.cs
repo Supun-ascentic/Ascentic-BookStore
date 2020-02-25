@@ -63,7 +63,7 @@ namespace Ascentic.BookStore.API.Controllers
             }
 
             // POST: api/[controller]
-            [Authorize]
+          //  [Authorize]
             [HttpPost]
             public async Task<ActionResult<TEntity>> Post(TDTO tDto)
             {

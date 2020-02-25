@@ -1,0 +1,9 @@
+.BookListItem-main-card {
+    width: 320px;
+    height: 415px;
+  }
+  
+  .BookListItem-img {
+    position: relative;
+    max-width: 100%;
+  }

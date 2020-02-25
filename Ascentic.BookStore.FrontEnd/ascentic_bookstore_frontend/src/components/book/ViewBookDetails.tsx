@@ -2,7 +2,7 @@ import * as React from 'react';
 import { RouteComponentProps, withRouter, Link } from 'react-router-dom';
 import axios from 'axios';
 
-import { Layout,Card,Descriptions } from 'antd';
+import { Layout,Card,Descriptions, Button } from 'antd';
 import "antd/dist/antd.css";
 
 const {Content,Sider} = Layout;
@@ -72,29 +72,44 @@ class ViewBookDetails extends React.Component<RouteComponentProps<any>, IFormSta
                     </Sider>
                     <Content>
                         <div style={{padding: 50}}>
-                            <Descriptions title="Book Details">
-                                <Descriptions.Item label="Title">{book.title}</Descriptions.Item>
-                            <Descriptions.Item label="Author">
+                        <h4>Book Details</h4>
+                        <hr></hr>
+                            <div>
+                                <label><b>Title :</b></label>
+                                <p>{book.title}</p>
+                            </div>
+                            
+                            <div>
+                                <label><b>Author :</b></label>
                                 {book.bookAuthor && book.bookAuthor.map((authorData: any) =>
-                                     <Link to={`/author-details/${authorData.author.id}`} key={authorData.author.id}>
-                                         <p style={{paddingLeft:5}} >{authorData.author.name}</p>
-                                     </Link>
-                                     
-                                )}
-                            </Descriptions.Item>
-                            <Descriptions.Item label="Price">{book.price}
-                            </Descriptions.Item>
-                            <Descriptions.Item label="Category">
+                                        <Link to={`/author-details/${authorData.author.id}`} key={authorData.author.id}>
+                                            <p style={{paddingLeft:5}} >{authorData.author.name}</p>
+                                        </Link>
+                                        
+                                    )}
+                            </div>
+
+                            <div>
+                                <label><b>Price :</b></label>
+                                <p>{book.price}</p>
+                            </div>
+
+                            <div>
+                                <label><b>Category :</b></label>
                                 {book.bookCategory && book.bookCategory.map((categoryData: any) =>
                                      <p style={{paddingLeft:5}} key={categoryData.category.id}>{categoryData.category.categoryName}</p>
                                 )}
-                            </Descriptions.Item>
-                            <Descriptions.Item label="Description">
-                                {book.description}
-                            </Descriptions.Item>
-                            </Descriptions>  
-                            
-                            <Link to={`book-edit/${book.id}`} >Edit</Link>
+                            </div>
+
+
+                            <div>
+                                <label><b>Description :</b></label>
+                                <p>{book.description}</p>
+                            </div>
+
+                            <Link to={`book-edit/${book.id}`} ><Button type="primary">Edit</Button></Link>
+
+
                         </div>       
                     </Content>
                 </Layout>

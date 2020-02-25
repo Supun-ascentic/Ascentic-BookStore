@@ -2,9 +2,9 @@ import * as React from 'react';
 import { Link, RouteComponentProps,useHistory  } from 'react-router-dom';
 import axios, { AxiosError } from 'axios';
 
-import { Table, Divider, Tag,Input,Select,Card,Row,Col, Button } from 'antd';
+import { Layout,Input,Select,Card,Row,Col, Button } from 'antd';
 import "antd/dist/antd.css";
-
+import "./Home.css";
 import bookCoverPlaceholder from '../../public/book-cover-placeholder.jpg';
 
 const InputGroup = Input.Group;
@@ -12,7 +12,8 @@ const { Option } = Select;
 const { Meta } = Card;
 
 
-const dataSource = ['Burns Bay Road', 'Downing Street', 'Wall Street'];
+const { Content ,Sider} = Layout;
+
 
 interface IState {
     books: any[];
@@ -87,6 +88,10 @@ export default class Home extends React.Component<RouteComponentProps, IState> {
         console.log(err)
       }
     }
+
+    Logout(){
+      localStorage.clear();
+    }
   
 
 
@@ -95,29 +100,46 @@ export default class Home extends React.Component<RouteComponentProps, IState> {
         return (
           <div>
             <div style={{background: '#fff', padding: 24,marginBottom:20, minHeight: 100 }}>
-                <InputGroup compact>
-                  <b style={{paddingRight: 24}}>Sort By</b>
-                  
-                  <Select style={{minWidth: '20%'}} defaultValue="None" onChange={this.SortBooks.bind(this)}>
-                    <Option value="None">None</Option>
-                    <Option value="Author">Author</Option>
-                    <Option value="Title">Title</Option>
-                  </Select>
-                </InputGroup>
-
-                <Link to={`book-create`} ><Button type="primary">Add a Book</Button></Link>
+             
+             
+                <Layout className="layout" style={{backgroundColor: "white"}}>
+                  <Content>
+                      <div>
+                          <InputGroup compact>
+                            <b style={{paddingRight: 24}}>Sort By</b>
+                            
+                            <Select style={{minWidth: '20%'}} defaultValue="None" onChange={this.SortBooks.bind(this)}>
+                              <Option value="None">None</Option>
+                              <Option value="Author">Author</Option>
+                              <Option value="Title">Title</Option>
+                            </Select>
+                          </InputGroup>
+                        </div>
+                  </Content>
+                  <Sider style={{backgroundColor: "white",minWidth :300}}>
+                    <div>
+                      <Link to={`add-author`} ><Button type="primary">Add Author</Button></Link>
+                      <Link to={`book-create`} ><Button type="primary">Add Book</Button></Link>
+                      <Link to={`login`} ><Button type="danger" onClick={this.Logout}>Logout</Button></Link>
+                    </div>
+                  </Sider>
+                </Layout>
+                
+               
+                
             </div>
             <div style={{ background: '#fff', padding: 24}}>
-             <Row gutter={16}>
+             <Row gutter={[16, 16]} type="flex">
               {books && books.map(book =>
-                <Col span={5} key={book.id}>
+                <Col span={4} key={book.id} >
                   <Link to={`book-details/${book.id}`} >
                      <Card
                         hoverable
-                        cover={<img alt="example" src={book.photoURL?book.photoURL:"/book-cover-placeholder.jpg"} />}
+                        cover={<img className="BookListItem-img" alt="example" src={book.photoURL?book.photoURL:"/book-cover-placeholder.jpg"} />}
+                        
                       >
                       <Meta title={book.title} />
-                        <div style={{display: 'flex', paddingTop: 8 }}>
+                        <div style={{display: 'flex', paddingTop: 24 }}>
                           <b>Author :</b> 
                           {book.bookAuthor && book.bookAuthor.map((authorData: any) =>
                           <p style={{paddingLeft:5}} key={authorData.author.id}>{authorData.author.name}</p>

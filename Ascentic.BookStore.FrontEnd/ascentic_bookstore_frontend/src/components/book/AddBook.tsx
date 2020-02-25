@@ -235,7 +235,7 @@ class AddBook extends React.Component<Props, IFormState> {
 
                         <div>
                             <div className={"col-md-12 form-wrapper"}>
-                                <h2> Add Book </h2>
+                                <h2> Add a Book </h2>
                                
 
                                 {submitSuccess && (
@@ -307,7 +307,7 @@ class AddBook extends React.Component<Props, IFormState> {
                                       )}
                                     </Form.Item>
                                     <Form.Item {...formItemLayout}>
-                                        <Button type="primary" htmlType="submit">Edit</Button>
+                                        <Button type="primary" htmlType="submit">Add</Button>
                                     </Form.Item>
                                     </Form>
                             </div>

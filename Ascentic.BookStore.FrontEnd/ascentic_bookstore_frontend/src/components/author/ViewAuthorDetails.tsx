@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { RouteComponentProps, withRouter, Link } from 'react-router-dom';
 import axios from 'axios';
+import Moment from 'moment';
 
 import { Layout,Card,Descriptions } from 'antd';
 import "antd/dist/antd.css";
@@ -57,7 +58,8 @@ class ViewAuthorDetails extends React.Component<RouteComponentProps<any>, IFormS
 
 
     public render() {
-        const {  loading,author,ratings } = this.state;
+        Moment.locale('en');
+        const {  author } = this.state;
         return (
             <div style={{background: '#fff', padding: 24,marginBottom:20, minHeight: 800 }}>
                <Layout style={{background: '#fff', padding: 24,marginBottom:20, minHeight: 800 }}>
@@ -66,30 +68,50 @@ class ViewAuthorDetails extends React.Component<RouteComponentProps<any>, IFormS
                             <Card
                                 cover={<img alt="example" src={author.photoURL?author.photoURL:"/book-cover-placeholder.jpg"} />}
                             >
-                           
                             </Card>
                         </div>
                     </Sider>
                     <Content>
+
                         <div style={{padding: 50}}>
-                            <Descriptions title="Book Details">
-                                <Descriptions.Item label="Name">{author.name}</Descriptions.Item>
-                            <Descriptions.Item label="Books">
+                        <h4>Author Details</h4>
+                        <hr></hr>
+                            <div>
+                                <label><b>Name :</b></label>
+                                <p>{author.name}</p>
+                            </div>
+                            
+                            <div>
+                                <label><b>Books :</b></label>
                                 {author.bookAuthor && author.bookAuthor.map((bookData: any) =>
                                     <Link to={`/book-details/${bookData.book.id}`} key={bookData.book.id}>
                                         <p style={{paddingLeft:5}} >{bookData.book.title}</p>
                                      </Link>
                                 )}
-                            </Descriptions.Item>
-                            <Descriptions.Item label="Birthday">{author.birthDay}
-                            </Descriptions.Item>
-                            <Descriptions.Item label="BirthPlace">{author.birthPlace}
-                            </Descriptions.Item>
-                            <Descriptions.Item label="Facts">
-                                {author.facts}
-                            </Descriptions.Item>
-                            </Descriptions>  
-                            
+                            </div>
+
+                            <div>
+                                <label><b>Birthday :</b></label>
+                                <p>{Moment(author.birthDay).format('d MMM YYYY')}</p>
+                            </div>
+
+                            <div>
+                                <label><b>birthPlace :</b></label>
+                                <p>{author.birthPlace}</p>
+                            </div>
+
+
+                            <div>
+                                <label><b>Facts :</b></label>
+                                <p>{author.facts}</p>
+                            </div>
+
+                           
+
+
+
+
+
                            
                         </div>       
                     </Content>
