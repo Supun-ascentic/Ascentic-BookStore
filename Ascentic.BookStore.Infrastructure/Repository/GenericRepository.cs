@@ -1,7 +1,8 @@
 ﻿
 namespace Ascentic.BookStore.Infrastructure.Repository
 {
-    using Ascentic.BookStore.Domain.Interface;
+    using Ascentic.BookStore.Infrastructure.Interfaces;
+    using Ascentic.BookStore.Model.Interfaces;
     using Microsoft.EntityFrameworkCore;
     using System.Collections.Generic;
     using System.Threading.Tasks;

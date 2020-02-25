@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Ascentic.BookStore.Infrastructure.Migrations
 {
-    public partial class initial_new : Migration
+    public partial class Initial_new : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

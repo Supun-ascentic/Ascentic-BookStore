@@ -4,8 +4,8 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-    using Ascentic.BookStore.Domain.DTO;
-    using Ascentic.BookStore.Domain.Entity;
+    using Ascentic.BookStore.Model.DTO;
+    using Ascentic.BookStore.Model.Entity;
     using Ascentic.BookStore.Infrastructure.Repository;
     using AutoMapper;
     using Microsoft.AspNetCore.Authorization;
@@ -26,7 +26,7 @@
         }
 
         // GET: api/[controller]
-        [Authorize]
+       // [Authorize]
         [HttpGet]
         [Route("get_books_with_all_Details")]
         public async Task<ActionResult<IEnumerable<Book>>> GetBooksWithAllDetails()

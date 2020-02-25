@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Ascentic.BookStore.Domain\Ascentic.BookStore.Domain.csproj" />
+    <ProjectReference Include="..\Ascentic.BookStore.Model\Ascentic.BookStore.Model.csproj" />
   </ItemGroup>
 
 </Project>

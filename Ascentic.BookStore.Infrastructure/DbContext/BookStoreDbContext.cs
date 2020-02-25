@@ -1,5 +1,5 @@
 ﻿
-using Ascentic.BookStore.Domain.Entity;
+using Ascentic.BookStore.Model.Entity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 

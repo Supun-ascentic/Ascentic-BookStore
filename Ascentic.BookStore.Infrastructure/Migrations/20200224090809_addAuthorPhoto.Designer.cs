@@ -21,7 +21,7 @@ namespace Ascentic.BookStore.Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Ascentic.BookStore.Domain.Entity.Author", b =>
+            modelBuilder.Entity("Ascentic.BookStore.Model.Entity.Author", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -49,7 +49,7 @@ namespace Ascentic.BookStore.Infrastructure.Migrations
                     b.ToTable("Author");
                 });
 
-            modelBuilder.Entity("Ascentic.BookStore.Domain.Entity.Book", b =>
+            modelBuilder.Entity("Ascentic.BookStore.Model.Entity.Book", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -75,7 +75,7 @@ namespace Ascentic.BookStore.Infrastructure.Migrations
                     b.ToTable("Book");
                 });
 
-            modelBuilder.Entity("Ascentic.BookStore.Domain.Entity.BookAuthor", b =>
+            modelBuilder.Entity("Ascentic.BookStore.Model.Entity.BookAuthor", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -97,7 +97,7 @@ namespace Ascentic.BookStore.Infrastructure.Migrations
                     b.ToTable("BookAuthor");
                 });
 
-            modelBuilder.Entity("Ascentic.BookStore.Domain.Entity.BookCategory", b =>
+            modelBuilder.Entity("Ascentic.BookStore.Model.Entity.BookCategory", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -119,7 +119,7 @@ namespace Ascentic.BookStore.Infrastructure.Migrations
                     b.ToTable("BookCategory");
                 });
 
-            modelBuilder.Entity("Ascentic.BookStore.Domain.Entity.BookRating", b =>
+            modelBuilder.Entity("Ascentic.BookStore.Model.Entity.BookRating", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -139,7 +139,7 @@ namespace Ascentic.BookStore.Infrastructure.Migrations
                     b.ToTable("BookRating");
                 });
 
-            modelBuilder.Entity("Ascentic.BookStore.Domain.Entity.Category", b =>
+            modelBuilder.Entity("Ascentic.BookStore.Model.Entity.Category", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -351,39 +351,39 @@ namespace Ascentic.BookStore.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Ascentic.BookStore.Domain.Entity.BookAuthor", b =>
+            modelBuilder.Entity("Ascentic.BookStore.Model.Entity.BookAuthor", b =>
                 {
-                    b.HasOne("Ascentic.BookStore.Domain.Entity.Author", "Author")
+                    b.HasOne("Ascentic.BookStore.Model.Entity.Author", "Author")
                         .WithMany("BookAuthor")
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Ascentic.BookStore.Domain.Entity.Book", "Book")
+                    b.HasOne("Ascentic.BookStore.Model.Entity.Book", "Book")
                         .WithMany("BookAuthor")
                         .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Ascentic.BookStore.Domain.Entity.BookCategory", b =>
+            modelBuilder.Entity("Ascentic.BookStore.Model.Entity.BookCategory", b =>
                 {
-                    b.HasOne("Ascentic.BookStore.Domain.Entity.Book", "Book")
+                    b.HasOne("Ascentic.BookStore.Model.Entity.Book", "Book")
                         .WithMany("BookCategory")
                         .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Ascentic.BookStore.Domain.Entity.Category", "Category")
+                    b.HasOne("Ascentic.BookStore.Model.Entity.Category", "Category")
                         .WithMany("BookCategory")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Ascentic.BookStore.Domain.Entity.BookRating", b =>
+            modelBuilder.Entity("Ascentic.BookStore.Model.Entity.BookRating", b =>
                 {
-                    b.HasOne("Ascentic.BookStore.Domain.Entity.Book", "Book")
+                    b.HasOne("Ascentic.BookStore.Model.Entity.Book", "Book")
                         .WithMany("Ratings")
                         .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)

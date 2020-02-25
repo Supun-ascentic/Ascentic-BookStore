@@ -1,9 +1,9 @@
-﻿using Ascentic.BookStore.Domain.Interface;
+﻿using Ascentic.BookStore.Model.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Ascentic.BookStore.Domain.DTO
+namespace Ascentic.BookStore.Model.DTO
 {
     public class BookAuthorDTO:IBaseDTO
     {

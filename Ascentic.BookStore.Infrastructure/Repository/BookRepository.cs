@@ -1,6 +1,6 @@
 ﻿namespace Ascentic.BookStore.Infrastructure.Repository
 {
-    using Ascentic.BookStore.Domain.Entity;
+    using Ascentic.BookStore.Model.Entity;
     using Ascentic.BookStore.Infrastructure.DbContext;
     using Microsoft.EntityFrameworkCore;
     using System.Collections.Generic;
@@ -62,7 +62,7 @@
                 .ToListAsync();
 
 
-            return book.OrderBy(book => (book.BookAuthor[0].Author.Name == null) ? string.Empty : book.BookAuthor[0].Author.Name).ToList();
+            return book.OrderBy(book => book.BookAuthor[0].Author.Name ?? string.Empty).ToList();
         }
 
         // We can add new methods specific to the movie repository here in the future

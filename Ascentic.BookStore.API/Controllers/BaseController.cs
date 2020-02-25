@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Ascentic.BookStore.Domain.DTO;
-using Ascentic.BookStore.Domain.Interface;
+using Ascentic.BookStore.Infrastructure.Interfaces;
+using Ascentic.BookStore.Model.DTO;
+using Ascentic.BookStore.Model.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;

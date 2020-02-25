@@ -1,6 +1,6 @@
 ﻿namespace Ascentic.BookStore.Infrastructure.Repository
 {
-    using Ascentic.BookStore.Domain.Entity;
+    using Ascentic.BookStore.Model.Entity;
     using Ascentic.BookStore.Infrastructure.DbContext;
     using Microsoft.EntityFrameworkCore;
     using System.Collections.Generic;

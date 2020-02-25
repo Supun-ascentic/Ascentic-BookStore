@@ -1,4 +1,4 @@
-﻿namespace Ascentic.BookStore.Domain.Interface
+﻿namespace Ascentic.BookStore.Model.Interfaces
 {
     public interface IBaseDTO
     {

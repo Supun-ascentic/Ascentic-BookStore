@@ -1,6 +1,6 @@
-﻿using Ascentic.BookStore.Domain.DTO;
-using Ascentic.BookStore.Domain.Entity;
-using Ascentic.BookStore.Domain.Interface;
+﻿using Ascentic.BookStore.Model.DTO;
+using Ascentic.BookStore.Model.Entity;
+using Ascentic.BookStore.Model.Interfaces;
 using AutoMapper;
 using System;
 using System.Collections.Generic;

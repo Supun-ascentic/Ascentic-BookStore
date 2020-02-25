@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
 
   <PropertyGroup>
@@ -42,7 +42,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Ascentic.BookStore.Domain\Ascentic.BookStore.Domain.csproj" />
+    <ProjectReference Include="..\Ascentic.BookStore.Model\Ascentic.BookStore.Model.csproj" />
     <ProjectReference Include="..\Ascentic.BookStore.Infrastructure\Ascentic.BookStore.Infrastructure.csproj" />
   </ItemGroup>
 
