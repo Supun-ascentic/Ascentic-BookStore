@@ -21,5 +21,6 @@ namespace Ascentic.BookStore.Model.DTO
         public string Description { get; set; }
 
         public string PhotoURL { get; set; }
+        public DateTime CreatedOn { get; set; }
     }
 }

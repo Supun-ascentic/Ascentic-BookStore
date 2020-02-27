@@ -57,7 +57,7 @@ namespace Ascentic.BookStore.Infrastructure.DbContext
 
         public DbSet<BookAuthor> BookAuthor { get; set; }
 
-        public DbSet<BookRating> BookRating { get; set; }
+        public DbSet<Rating> BookRating { get; set; }
 
         public DbSet<Category> Category { get; set; }
 

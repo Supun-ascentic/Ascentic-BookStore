@@ -19,5 +19,7 @@ namespace Ascentic.BookStore.Model.DTO
 
         public List<BookAuthorDTO> BookAuthor { get; set; }
         public string PhotoURL { get; set; }
+
+        public DateTime CreatedOn { get; set; }
     }
 }

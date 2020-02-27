@@ -10,14 +10,15 @@
     using AutoMapper;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
+    using Ascentic.BookStore.Application.Interfaces;
 
     [Route("api/[controller]")]
     [ApiController]
-    public class CategoryController : BaseController<Category,CategoryDTO, CategoryRepository>
+    public class CategoryController : BaseController<Category,CategoryDTO, ICategoryApplication>
     {
       
-        public CategoryController(CategoryRepository repository, IMapper mapper)
-            : base(repository, mapper)
+        public CategoryController(ICategoryApplication categoryApplication)
+            : base(categoryApplication)
         {
             
         }

@@ -12,5 +12,6 @@ namespace Ascentic.BookStore.Model.DTO
 
         [Required]
         public string Password { get; set; }
+
     }
 }

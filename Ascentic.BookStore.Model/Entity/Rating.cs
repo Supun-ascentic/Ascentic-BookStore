@@ -7,14 +7,14 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    public class BookRating : IEntity
+    public class Rating : IEntity
     {
         [Key]
         [Required]
         public int ID { get; set; }
 
         [Required]
-        public double Rating { get; set; }
+        public double rating { get; set; }
 
         [Required]
         public int BookId { get; set; }

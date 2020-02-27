@@ -8,8 +8,9 @@ namespace Ascentic.BookStore.Infrastructure.Repository
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using Ascentic.BookStore.Infrastructure.Interfaces;
 
-    public class RatingRepository : GenericRepository<BookRating, BookStoreDbContext>
+    public class RatingRepository : GenericRepository<Rating, BookStoreDbContext>, IRatingRepository
     {
         private readonly BookStoreDbContext context;
         public RatingRepository(BookStoreDbContext context)
@@ -19,9 +20,9 @@ namespace Ascentic.BookStore.Infrastructure.Repository
         }
         // We can add new methods specific to the movie repository here in the future
 
-        public async Task<List<BookRating>> GetRatingByBookId(int Bookid)
+        public async Task<List<Rating>> GetRatingByBookId(int Bookid)
         {
-            return await this.context.Set<BookRating>()
+            return await this.context.Set<Rating>()
                 .Where(rating => rating.BookId == Bookid)
                 .ToListAsync();
         }

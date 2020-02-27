@@ -5,7 +5,10 @@
 
 namespace Ascentic.BookStore.API
 {
+    using Ascentic.BookStore.Application.Interfaces;
+    using Ascentic.BookStore.Extensions;
     using Ascentic.BookStore.Infrastructure.DbContext;
+    using Ascentic.BookStore.Infrastructure.Interfaces;
     using Ascentic.BookStore.Infrastructure.Repository;
     using AutoMapper;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -22,6 +25,7 @@ namespace Ascentic.BookStore.API
     using Newtonsoft.Json;
     using System;
     using System.IdentityModel.Tokens.Jwt;
+    using System.Reflection;
     using System.Text;
 
     public class Startup
@@ -49,10 +53,10 @@ namespace Ascentic.BookStore.API
             services.AddDbContext<BookStoreDbContext>(options =>
                     options.UseSqlServer(this.Configuration.GetConnectionString("BookStoreContext")));
 
-            services.AddScoped<BookRepository>();
-            services.AddScoped<AuthorRepository>();
-            services.AddScoped<CategoryRepository>();
-            services.AddScoped<RatingRepository>();
+            
+            services.AddCustomServices();
+            
+
 
             // ===== Add Identity ========
             services.AddIdentity<IdentityUser, IdentityRole>()

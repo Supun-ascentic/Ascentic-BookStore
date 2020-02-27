@@ -44,12 +44,13 @@ namespace Ascentic.BookStore.Infrastructure.Repository
             return await context.Set<TEntity>().FindAsync(id);
         }
 
-        public async Task<List<TEntity>> GetAll()
+        public  async Task<List<TEntity>> GetAll()
         {
-            return await context.Set<TEntity>().ToListAsync();
+            var result= await context.Set<TEntity>().ToListAsync();
+            return result;
         }
 
-        public async Task<TEntity> Update(TEntity entity)
+        public async Task<TEntity> Update(int id, TEntity entity)
         {
            // context.Entry(entity).State = EntityState.Modified;
             context.Update(entity);

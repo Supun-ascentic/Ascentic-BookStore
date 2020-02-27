@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Ascentic.BookStore.Infrastructure.Interfaces;
+using Ascentic.BookStore.Application.Interfaces;
 using Ascentic.BookStore.Model.DTO;
 using Ascentic.BookStore.Model.Interfaces;
 using AutoMapper;
@@ -14,76 +14,100 @@ namespace Ascentic.BookStore.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public abstract class BaseController<TEntity, TDTO, TRepository> : ControllerBase
+    public abstract class BaseController<TEntity, TBaseDTO, TBaseApplication> : ControllerBase
         where TEntity : class, IEntity
-        where TDTO : class, IBaseDTO
-        where TRepository : IRepository<TEntity>
-        {
-            private readonly TRepository repository;
+        where TBaseDTO : class, IBaseDTO
+        where TBaseApplication : IBaseApplication<TEntity,TBaseDTO>
+    {
+            private readonly TBaseApplication baseApplication;
             private readonly IMapper mapper;
 
-            public BaseController(TRepository repository, IMapper mapper)
+            public BaseController(TBaseApplication baseApplication)
             {
-                this.mapper = mapper;
-                this.repository = repository;
+                this.baseApplication = baseApplication;
             }
 
             // GET: api/[controller]
-            [Authorize]
+            //[Authorize]
             [HttpGet]
-            public async Task<ActionResult<IEnumerable<TEntity>>> Get()
+            public async  Task<ActionResult<IEnumerable<TBaseDTO>>> Get()
             {
-                return await repository.GetAll();
+                try
+                {
+                    var result = await this.baseApplication.GetAll();
+                    return this.Ok(result);
+                }
+                catch (Exception)
+                {
+                    return this.BadRequest("Could not get data");
+                }
             }
 
             // GET: api/[controller]/5
-            [Authorize]
+            //[Authorize]
             [HttpGet("{id}")]
             public async Task<ActionResult<TEntity>> Get(int id)
             {
-                var item = await repository.Get(id);
-                if (item == null)
+                try
                 {
-                    return NotFound();
+                    var result = await this.baseApplication.Get(id);
+                    return this.Ok(result);
                 }
-                return item;
+                catch (Exception)
+                {
+                    return this.BadRequest("Could not get data");
+                }
             }
 
             // PUT: api/[controller]/5
-            [Authorize]
+            //[Authorize]
             [HttpPut("{id}")]
-            public async Task<ActionResult<TEntity>> Put(int id, TDTO tDto)
+            public async Task<ActionResult<TEntity>> Put(int id, TBaseDTO TBaseDTO)
             {
-             var item = this.mapper.Map<TEntity>(tDto);
-             if (id != item.ID)
-            {
-                return BadRequest();
-            }
-             await repository.Update(item);
-             return item;
+                try
+                {
+                    if (id != TBaseDTO.ID)
+                    {
+                        return this.BadRequest("Incorrect data provided");
+                    }
+                    this.baseApplication.Update(id,TBaseDTO);
+                    return this.Ok("UPDATE SUCCESSED");
+                }
+                catch (Exception)
+                {
+                    return this.BadRequest("Could not update data");
+                }
             }
 
             // POST: api/[controller]
           //  [Authorize]
             [HttpPost]
-            public async Task<ActionResult<TEntity>> Post(TDTO tDto)
+            public async Task<ActionResult<TEntity>> Post(TBaseDTO TBaseDTO)
             {
-                var item = this.mapper.Map<TEntity>(tDto);
-                await repository.Add(item);
-                return CreatedAtAction("Get", new { id = item.ID }, item);
+                try
+                {
+                    return this.Ok(await this.baseApplication.Add(TBaseDTO));
+                }
+                catch (Exception)
+                {
+                    return this.BadRequest("Could not add data");
+                }
             }
 
             // DELETE: api/[controller]/5
-            [Authorize]
+            //[Authorize]
             [HttpDelete("{id}")]
             public async Task<ActionResult<TEntity>> Delete(int id)
             {
-                var item = await repository.Delete(id);
-                if (item == null)
+                try
                 {
-                    return NotFound();
+                    this.baseApplication.Delete(id);
+                    return this.Ok();
                 }
-                return item;
+                catch (Exception)
+                {
+                     return this.BadRequest("Could not add data");
+            }
             }
 
         }

@@ -8,18 +8,18 @@ namespace Ascentic.BookStore.Application.Interfaces
     using System.Text;
     using System.Threading.Tasks;
 
-    public interface IBaseApplication
+    public interface IBaseApplication<IEntity,IBaseDTO>
     {
 
         Task<IBaseDTO> Add(IBaseDTO baseDTO);
 
-        IEnumerable<IBaseDTO> GetAll();
+        Task<IEnumerable<IBaseDTO>> GetAll();
 
         void Delete(int key);
 
-        void Update(int key, IBaseDTO baseDTO);
+        void Update(int key,IBaseDTO baseDTO);
 
-        IBaseDTO Get(int key);
+        Task<IBaseDTO> Get(int key);
 
     }
 }

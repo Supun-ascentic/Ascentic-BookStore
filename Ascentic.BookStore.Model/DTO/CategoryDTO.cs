@@ -11,6 +11,7 @@ namespace Ascentic.BookStore.Model.DTO
         public int ID { get; set; }
         [Required]
         public string CategoryName { get; set; }
+        public DateTime CreatedOn { get; set; }
 
     }
 }

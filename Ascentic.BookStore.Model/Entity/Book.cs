@@ -21,7 +21,7 @@ namespace Ascentic.BookStore.Model.Entity
 
             public List<BookCategory> BookCategory { get; set; }
 
-            public List<BookRating> Ratings { get; set; }
+            public List<Rating> Ratings { get; set; }
 
             public List<BookAuthor> BookAuthor { get; set; }
 

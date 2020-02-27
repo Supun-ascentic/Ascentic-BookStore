@@ -6,8 +6,9 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using Ascentic.BookStore.Infrastructure.Interfaces;
 
-    public class BookRepository : GenericRepository<Book, BookStoreDbContext>
+    public class BookRepository : GenericRepository<Book, BookStoreDbContext>,IBookRepository
     {
 
      

@@ -7,11 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ascentic.BookStore.Infrastr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ascentic.BookStore.API", "Ascentic.BookStore.API\Ascentic.BookStore.API.csproj", "{A3706068-7910-4FEA-89C4-15B44216CF42}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ascentic.BookStore.Model", "Ascentic.BookStore.Model\Ascentic.BookStore.Model.csproj", "{608B6608-F0B6-41DF-8DD5-AEB7510DDA0E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ascentic.BookStore.Model", "Ascentic.BookStore.Model\Ascentic.BookStore.Model.csproj", "{608B6608-F0B6-41DF-8DD5-AEB7510DDA0E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ascentic.BookStore.Domain", "Ascentic.BookStore.Domain\Ascentic.BookStore.Domain.csproj", "{55F5EBEF-E93F-48CB-BB18-DE571EB36ECA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ascentic.BookStore.Domain", "Ascentic.BookStore.Domain\Ascentic.BookStore.Domain.csproj", "{55F5EBEF-E93F-48CB-BB18-DE571EB36ECA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ascentic.BookStore.Application", "Ascentic.BookStore.Application\Ascentic.BookStore.Application.csproj", "{E8BE88C0-440E-443A-AA14-9730DF0C0B32}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ascentic.BookStore.Application", "Ascentic.BookStore.Application\Ascentic.BookStore.Application.csproj", "{E8BE88C0-440E-443A-AA14-9730DF0C0B32}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Ascentic.BookStore.Infrastructure\Ascentic.BookStore.Infrastructure.csproj" />
     <ProjectReference Include="..\Ascentic.BookStore.Model\Ascentic.BookStore.Model.csproj" />
   </ItemGroup>
 

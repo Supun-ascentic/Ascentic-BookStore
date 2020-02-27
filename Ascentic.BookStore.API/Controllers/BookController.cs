@@ -11,27 +11,29 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
+    using Ascentic.BookStore.Application.Interfaces;
 
     [Route("api/[controller]")]
     [ApiController]
-    public class BookController : BaseController<Book, BookDTO, BookRepository>
+    public class BookController : BaseController<Book, BookDTO, IBookApplication>
     {
 
-        private readonly BookRepository repository;
+        private readonly IBookApplication bookApplication;
 
-        public BookController(BookRepository repository, IMapper mapper)
-            : base(repository, mapper)
+        public BookController(IBookApplication bookApplication)
+            : base(bookApplication)
         {
-            this.repository = repository;
+            this.bookApplication = bookApplication;
         }
 
+        /*
         // GET: api/[controller]
        // [Authorize]
         [HttpGet]
         [Route("get_books_with_all_Details")]
         public async Task<ActionResult<IEnumerable<Book>>> GetBooksWithAllDetails()
         {
-            return await this.repository.GetBooksWithAllDetails();
+            return await this.bookApplication.GetBooksWithAllDetails();
         }
 
         // GET: api/[controller]
@@ -40,7 +42,7 @@
         [Route("get_books_sorted_by_title")]
         public async Task<ActionResult<IEnumerable<Book>>> GetBooksSortedByTitle()
         {
-            return await this.repository.GetBooksSortedByTitle();
+            return await this.bookApplication.GetBooksSortedByTitle();
         }
 
         // GET: api/[controller]
@@ -49,7 +51,7 @@
         [Route("get_books_sorted_by_author")]
         public async Task<ActionResult<IEnumerable<Book>>> GetBooksSortedByAuthor()
         {
-            return await this.repository.GetBooksSortedByAuthor();
+            return await this.bookApplication.GetBooksSortedByAuthor();
         }
 
         // GET: api/[controller]/5
@@ -57,12 +59,14 @@
         [HttpGet("get_full_book_details/{id}")]
         public async Task<ActionResult<Book>> GetAllDetails(int id)
         {
-            var item = await repository.GetAllDetails(id);
+            var item = await bookApplication.GetAllDetails(id);
             if (item == null)
             {
                 return NotFound();
             }
             return item;
         }
+
+    */
     }
 }

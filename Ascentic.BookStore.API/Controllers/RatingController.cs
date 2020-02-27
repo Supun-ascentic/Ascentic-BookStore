@@ -11,23 +11,26 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
+    using Ascentic.BookStore.Application.Interfaces;
 
     [Route("api/[controller]")]
     [ApiController]
-    public class BookRatingController : BaseController<BookRating,RatingDTO, RatingRepository>
+    public class RatingController : BaseController<Rating,RatingDTO, IRatingApplication>
     {
-        private readonly RatingRepository repository;
+        private readonly IRatingApplication ratingApplication;
 
-        public BookRatingController(RatingRepository repository, IMapper mapper)
-            : base(repository, mapper)
+        public RatingController(IRatingApplication ratingApplication)
+            : base(ratingApplication)
         {
-            this.repository = repository;
+            this.ratingApplication = ratingApplication;
         }
 
+
+        /*
         // GET: api/[controller]/5
         [Authorize]
         [HttpGet("get_rating_by_bookid/{id}")]
-        public async Task<ActionResult<IEnumerable<BookRating>>> GetRatingByBookId(int id)
+        public async Task<ActionResult<IEnumerable<Rating>>> GetRatingByBookId(int id)
         {
             var item = await this.repository.GetRatingByBookId(id);
             if (item == null)
@@ -37,5 +40,6 @@
 
             return item;
         }
+        */
     }
 }

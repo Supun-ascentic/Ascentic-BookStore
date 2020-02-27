@@ -15,7 +15,7 @@
 
         Task<TEntity> Add(TEntity entity);
 
-        Task<TEntity> Update(TEntity entity);
+        Task<TEntity> Update(int id, TEntity entity);
 
         Task<TEntity> Delete(int id);
     }

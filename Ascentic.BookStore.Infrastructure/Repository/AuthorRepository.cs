@@ -5,8 +5,9 @@
     using Microsoft.EntityFrameworkCore;
     using System.Collections.Generic;
     using System.Threading.Tasks;
+    using Ascentic.BookStore.Infrastructure.Interfaces;
 
-    public class AuthorRepository : GenericRepository<Author, BookStoreDbContext>
+    public class AuthorRepository : GenericRepository<Author, BookStoreDbContext>,IAuthorRepository
     {
         private readonly BookStoreDbContext context;
         public AuthorRepository(BookStoreDbContext context)

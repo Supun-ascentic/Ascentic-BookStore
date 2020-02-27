@@ -9,44 +9,47 @@ using Ascentic.BookStore.Domain.Interfaces;
 
 namespace Ascentic.BookStore.Application.Applications
 {
-    class BaseApplication : IBaseApplication
+    public abstract class BaseApplication<TEntity,TBaseDTO> : IBaseApplication<TEntity, TBaseDTO>
+        where TBaseDTO : class, IBaseDTO
+        where TEntity : class, IEntity
     {
         private readonly IMapper mapper;
-        private readonly IBaseDomain baseDomain;
+        private readonly IBaseDomain<TEntity> baseDomain;
 
-        public BaseApplication(IBaseDomain baseDomain, IMapper mapper)
+        public BaseApplication(IBaseDomain<TEntity> baseDomain, IMapper mapper)
         {
             this.baseDomain = baseDomain;
             this.mapper = mapper;
         }
 
-        public async Task<IBaseDTO> Add(IBaseDTO baseDTO)
+        public async Task<TBaseDTO> Add(TBaseDTO baseDTO)
         {
-            var mappedFrontendData = this.mapper.Map<IEntity>(baseDTO);
+            var mappedFrontendData = this.mapper.Map<TEntity>(baseDTO);
             var newlyCreatedBase = await baseDomain.Add(mappedFrontendData);
 
-            var mappedNewBase = this.mapper.Map<IBaseDTO>(newlyCreatedBase);
+            var mappedNewBase = this.mapper.Map<TBaseDTO>(newlyCreatedBase);
             return mappedNewBase;
         }
 
         public void Delete(int key)
         {
-            throw new NotImplementedException();
+            this.baseDomain.Delete(key);
         }
 
-        public IEnumerable<IBaseDTO> GetAll()
+        public async Task<IEnumerable<TBaseDTO>> GetAll()
         {
-            throw new NotImplementedException();
+            var obj =await this.baseDomain.GetAll();
+            return this.mapper.Map<TBaseDTO[]>(obj);
         }
 
-        public IBaseDTO Get(int key)
+        public async Task<TBaseDTO> Get(int key)
         {
-            throw new NotImplementedException();
+            return  this.mapper.Map<TBaseDTO>(this.baseDomain.Get(key));
         }
 
-        public void Update(int key, IBaseDTO baseDTO)
+        public void Update(int key, TBaseDTO baseDTO)
         {
-            throw new NotImplementedException();
+            this.baseDomain.Update(key, this.mapper.Map<TEntity>(baseDTO));
         }
     }
 }
