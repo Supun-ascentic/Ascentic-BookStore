@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Ascentic.BookStore.Domain.Interfaces;
 using Ascentic.BookStore.Model.DTO;
 using Ascentic.BookStore.Model.Entity;
+using Ascentic.BookStore.Model.ViewDTO;
 
 namespace Ascentic.BookStore.Application.Applications
 {
@@ -21,6 +22,35 @@ namespace Ascentic.BookStore.Application.Applications
         {
             this.bookDomain = bookDomain;
             this.mapper = mapper;
+        }
+
+        public async Task<IEnumerable<Book>> GetBooksWithAllDetails()
+        {
+            var obj = await this.bookDomain.GetBooksWithAllDetails();
+           // var result= this.mapper.Map<BookViewDTO[]>(obj);
+            return obj;
+        }
+
+        public async Task<IEnumerable<Book>> GetBooksSortedByAuthor()
+        {
+            var obj = await this.bookDomain.GetBooksSortedByAuthor();
+            //return this.mapper.Map<BookViewDTO[]>(obj);
+            return obj;
+        }
+
+        public async Task<IEnumerable<Book>> GetBooksSortedByTitle()
+        {
+            var obj = await this.bookDomain.GetBooksSortedByTitle();
+            //return this.mapper.Map<BookViewDTO[]>(obj);
+            return obj;
+        }
+
+        public async Task<Book> GetAllDetails(int key)
+        {
+            var obj = await this.bookDomain.GetAllDetails(key);
+            //return this.mapper.Map<BookViewDTO[]>(obj);
+            return obj;
+           // return this.mapper.Map<BookViewDTO>(this.bookDomain.GetAllDetails(key));
         }
 
     }

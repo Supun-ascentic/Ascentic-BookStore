@@ -7,16 +7,10 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    public interface IAuthorRepository
+    public interface IAuthorRepository: IRepository<Author>
     {
-        Task<List<Author>> GetAll();
 
-        Task<Author> Get(int id);
-
-        Task<Author> Add(Author entity);
-
-        Task<Author> Update(int id, Author entity);
-
-        Task<Author> Delete(int id);
+        Task<List<Author>> GetAuthorsWithBooks();
+        Task<Author> GetAuthorAllDetails(int id);
     }
 }

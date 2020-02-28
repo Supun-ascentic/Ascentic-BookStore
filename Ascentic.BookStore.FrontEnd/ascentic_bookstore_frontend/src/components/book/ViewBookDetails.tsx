@@ -33,7 +33,7 @@ class ViewBookDetails extends React.Component<RouteComponentProps<any>, IFormSta
         const config = {
             headers: { Authorization: `Bearer ${localStorage.getItem('AccessToken')}`}
         };
-        axios.get(`https://localhost:44359/api/Book/get_full_book_details/${this.state.id}`,config).then(data => {
+        axios.get(`https://localhost:5001/api/Book/get_full_book_details/${this.state.id}`,config).then(data => {
             this.setState({ book: data.data });
             console.log(this.state);
         }).catch(err=>{

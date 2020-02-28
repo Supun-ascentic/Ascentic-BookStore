@@ -7,16 +7,7 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    public interface ICategoryRepository
+    public interface ICategoryRepository: IRepository<Category>
     {
-        Task<List<Category>> GetAll();
-
-        Task<Category> Get(int id);
-
-        Task<Category> Add(Category entity);
-
-        Task<Category> Update(int id, Category entity);
-
-        Task<Category> Delete(int id);
     }
 }

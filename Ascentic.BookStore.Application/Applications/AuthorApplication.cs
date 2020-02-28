@@ -23,5 +23,22 @@ namespace Ascentic.BookStore.Application.Applications
             this.mapper = mapper;
         }
 
+
+
+        public async Task<IEnumerable<Author>> GetAuthorsWithBooks()
+        {
+            var obj = await this.authorDomain.GetAuthorsWithBooks();
+            //return this.mapper.Map<BookViewDTO[]>(obj);
+            return obj;
+        }
+
+        public async Task<Author> GetAuthorAllDetails(int key)
+        {
+            var obj = await this.authorDomain.GetAuthorAllDetails(key);
+            //return this.mapper.Map<BookViewDTO[]>(obj);
+            return obj;
+            // return this.mapper.Map<BookViewDTO>(this.bookDomain.GetAllDetails(key));
+        }
+
     }
 }

@@ -49,5 +49,17 @@ namespace Ascentic.BookStore.Domain.Domain
             this.unitOfWork.AuthorRepository.Update(id, entity);
             this.unitOfWork.SaveChangesAsync();
         }
+
+        public async Task<List<Author>> GetAuthorsWithBooks()
+        {
+            var entity = await this.unitOfWork.AuthorRepository.GetAuthorsWithBooks();
+            return entity;
+        }
+
+        public async Task<Author> GetAuthorAllDetails(int key)
+        {
+            var entity = await this.unitOfWork.AuthorRepository.GetAuthorAllDetails(key);
+            return entity;
+        }
     }
 }

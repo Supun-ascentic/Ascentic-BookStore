@@ -54,7 +54,7 @@ class EditBook extends React.Component<Props, IFormState> {
             headers: { Authorization: `Bearer ${localStorage.getItem('AccessToken')}`}
         };
 
-        axios.get(`https://localhost:44359/api/Book/get_full_book_details/${this.state.id}`,config).then(data => {
+        axios.get(`https://localhost:5001/api/Book/get_full_book_details/${this.state.id}`,config).then(data => {
             this.setState({ book: data.data });
             this.setState({ values: data.data });
             this.setState({ addedAuthors: data.data.bookAuthor });
@@ -70,13 +70,13 @@ class EditBook extends React.Component<Props, IFormState> {
             this.HandleError(err);
           })
 
-        axios.get(`https://localhost:44359/api/Category`,config).then(data => {
+        axios.get(`https://localhost:5001/api/Category`,config).then(data => {
             this.setState({ categoriesList: data.data });
         }).catch(err=>{
             this.HandleError(err);
           })
 
-        axios.get(`https://localhost:44359/api/Author`,config).then(data => {
+        axios.get(`https://localhost:5001/api/Author`,config).then(data => {
             this.setState({ authorsList: data.data });
         }).catch(err=>{
             this.HandleError(err);
@@ -101,7 +101,7 @@ class EditBook extends React.Component<Props, IFormState> {
         
        console.log(this.state.values);
        
-       axios.put(`https://localhost:44359/api/Book/${this.state.id}`, this.state.values,config).then(data => {
+       axios.put(`https://localhost:5001/api/Book/${this.state.id}`, this.state.values,config).then(data => {
             this.setState({ submitSuccess: true, loading: false })
             setTimeout(() => {
                 this.props.history.push('/');

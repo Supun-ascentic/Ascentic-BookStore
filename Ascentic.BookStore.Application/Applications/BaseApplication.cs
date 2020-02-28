@@ -44,7 +44,7 @@ namespace Ascentic.BookStore.Application.Applications
 
         public async Task<TBaseDTO> Get(int key)
         {
-            return  this.mapper.Map<TBaseDTO>(this.baseDomain.Get(key));
+            return this.mapper.Map<TBaseDTO>(this.baseDomain.Get(key));
         }
 
         public void Update(int key, TBaseDTO baseDTO)

@@ -12,7 +12,9 @@ namespace Ascentic.BookStore.Application.Interfaces
 
     public interface IAuthorApplication:IBaseApplication<Author,AuthorDTO>
     {
+        Task<IEnumerable<Author>> GetAuthorsWithBooks();
 
+        Task<Author> GetAuthorAllDetails(int key);
 
     }
 }

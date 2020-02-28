@@ -34,7 +34,7 @@ export default class Home extends React.Component<RouteComponentProps, IState> {
           headers: { Authorization: `Bearer ${localStorage.getItem('AccessToken')}`}
         };
         
-        axios.get(`https://localhost:44359/api/Book/get_books_with_all_Details`,config)
+        axios.get(`https://localhost:5001/api/Book/get_books_with_all_Details`,config)
         .then(data => {
             this.setState({ books: data.data })
         }) 
@@ -46,7 +46,7 @@ export default class Home extends React.Component<RouteComponentProps, IState> {
         const config = {
           headers: { Authorization: `Bearer ${localStorage.getItem('AccessToken')}`}
         };
-        axios.delete(`https://localhost:44359/api/Book/${id}`,config).then(data => {
+        axios.delete(`https://localhost:5001/api/Book/${id}`,config).then(data => {
             const index = this.state.books.findIndex(book => book.id === id);
             this.state.books.splice(index, 1);
             this.props.history.push('/');
@@ -56,12 +56,12 @@ export default class Home extends React.Component<RouteComponentProps, IState> {
     }
 
     SortBooks(value:String){
-      var bookGetUrl="https://localhost:44359/api/Book/get_books_with_all_Details";
+      var bookGetUrl="https://localhost:5001/api/Book/get_books_with_all_Details";
       if(value==="Author"){
-        bookGetUrl="https://localhost:44359/api/Book/get_books_sorted_by_author";
+        bookGetUrl="https://localhost:5001/api/Book/get_books_sorted_by_author";
       }
       else if(value==="Title"){
-        bookGetUrl="https://localhost:44359/api/Book/get_books_sorted_by_title";
+        bookGetUrl="https://localhost:5001/api/Book/get_books_sorted_by_title";
       }
 
       const config = {

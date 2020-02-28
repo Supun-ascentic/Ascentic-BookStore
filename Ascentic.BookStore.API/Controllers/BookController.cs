@@ -12,6 +12,7 @@
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Ascentic.BookStore.Application.Interfaces;
+    using Ascentic.BookStore.Model.ViewDTO;
 
     [Route("api/[controller]")]
     [ApiController]
@@ -26,47 +27,75 @@
             this.bookApplication = bookApplication;
         }
 
-        /*
+        
+        
         // GET: api/[controller]
        // [Authorize]
         [HttpGet]
         [Route("get_books_with_all_Details")]
         public async Task<ActionResult<IEnumerable<Book>>> GetBooksWithAllDetails()
         {
-            return await this.bookApplication.GetBooksWithAllDetails();
+            try
+            {
+                var result = await this.bookApplication.GetBooksWithAllDetails();
+                return this.Ok(result);
+            }
+            catch (Exception)
+            {
+                return this.BadRequest("Could not get data");
+            }
         }
 
         // GET: api/[controller]
-        [Authorize]
+      //  [Authorize]
         [HttpGet]
         [Route("get_books_sorted_by_title")]
         public async Task<ActionResult<IEnumerable<Book>>> GetBooksSortedByTitle()
         {
-            return await this.bookApplication.GetBooksSortedByTitle();
+            try
+            {
+                var result = await this.bookApplication.GetBooksSortedByTitle();
+                return this.Ok(result);
+            }
+            catch (Exception)
+            {
+                return this.BadRequest("Could not get data");
+            }
         }
 
         // GET: api/[controller]
-        [Authorize]
+      //  [Authorize]
         [HttpGet]
         [Route("get_books_sorted_by_author")]
         public async Task<ActionResult<IEnumerable<Book>>> GetBooksSortedByAuthor()
         {
-            return await this.bookApplication.GetBooksSortedByAuthor();
+            try
+            {
+                var result = await this.bookApplication.GetBooksSortedByAuthor();
+                return this.Ok(result);
+            }
+            catch (Exception)
+            {
+                return this.BadRequest("Could not get data");
+            }
         }
 
         // GET: api/[controller]/5
-        [Authorize]
+     //   [Authorize]
         [HttpGet("get_full_book_details/{id}")]
         public async Task<ActionResult<Book>> GetAllDetails(int id)
         {
-            var item = await bookApplication.GetAllDetails(id);
-            if (item == null)
+            try
             {
-                return NotFound();
+                var result = await bookApplication.GetAllDetails(id);
+                return this.Ok(result);
             }
-            return item;
+            catch (Exception)
+            {
+                return this.BadRequest("Could not get data");
+            }
         }
 
-    */
+    
     }
 }

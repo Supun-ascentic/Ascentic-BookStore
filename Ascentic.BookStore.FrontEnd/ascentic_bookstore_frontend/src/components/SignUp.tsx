@@ -67,7 +67,7 @@ class SignUp extends React.Component<Props, IFormState> {
         }
 
        console.log(this.state.values);
-       axios.post(`https://localhost:44359/Account/Register`, this.state.values,config).then(data => {
+       axios.post(`https://localhost:5001/Account/Register`, this.state.values,config).then(data => {
             console.log(data);
             this.setState({ submitSuccess: true, loading: false })
             setTimeout(() => {

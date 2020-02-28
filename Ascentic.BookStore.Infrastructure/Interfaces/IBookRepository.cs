@@ -7,16 +7,12 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    public interface IBookRepository
+    public interface IBookRepository: IRepository<Book>
     {
-        Task<List<Book>> GetAll();
 
-        Task<Book> Get(int id);
-
-        Task<Book> Add(Book entity);
-
-        Task<Book> Update(int id, Book entity);
-
-        Task<Book> Delete(int id);
+          Task<List<Book>> GetBooksWithAllDetails();
+          Task<Book> GetAllDetails(int id);
+          Task<List<Book>> GetBooksSortedByTitle();
+          Task<List<Book>> GetBooksSortedByAuthor();
     }
 }

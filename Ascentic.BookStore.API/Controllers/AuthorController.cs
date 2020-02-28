@@ -11,10 +11,11 @@
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Ascentic.BookStore.Application.Interfaces;
+    using Ascentic.BookStore.Model.ViewDTO;
 
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthorController : BaseController<Author,AuthorDTO,IAuthorApplication>
+    public class AuthorController : BaseController<Author, AuthorDTO, IAuthorApplication>
 
     {
         private readonly IAuthorApplication authorApplication;
@@ -26,30 +27,41 @@
    
         }
 
-        /*
+        
         // GET: api/[controller]
        //[Authorize]
         [HttpGet]
         [Route("get_authors_with_books")]
         public async Task<ActionResult<IEnumerable<Author>>> GetAuthorsWithBooks()
         {
-            return await this.authorApplication.GetAuthorsWithBooks();
+            try
+            {
+                var result = await this.authorApplication.GetAuthorsWithBooks();
+                return this.Ok(result);
+            }
+            catch (Exception)
+            {
+                return this.BadRequest("Could not get data");
+            }
         }
 
 
         // GET: api/[controller]/5
-        [Authorize]
+        //[Authorize]
         [HttpGet("get_full_author_details/{id}")]
         public async Task<ActionResult<Author>> GetAllDetails(int id)
         {
-            var item = await authorApplication.GetAuthorAllDetails(id);
-            if (item == null)
+            try
             {
-                return NotFound();
+                var result = await authorApplication.GetAuthorAllDetails(id);
+                return this.Ok(result);
             }
-            return item;
+            catch (Exception)
+            {
+                return this.BadRequest("Could not get data");
+            }
         }
 
-    */
+    
     }
 }

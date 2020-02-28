@@ -8,6 +8,9 @@ namespace Ascentic.BookStore.Domain.Interfaces
 {
     public interface IAuthorDomain: IBaseDomain<Author>
     {
+        Task<List<Author>> GetAuthorsWithBooks();
+
+        Task<Author> GetAuthorAllDetails(int key);
 
     }
 }
